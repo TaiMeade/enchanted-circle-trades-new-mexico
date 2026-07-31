@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+/*
+ * Tailwind's layers are declared by the import above. Because `vuetify/styles`
+ * is imported *before* this file in src/main.js, Vuetify's own cascade layers
+ * (vuetify-core, vuetify-components, vuetify-utilities, …) are registered first
+ * and therefore rank lower. Tailwind utilities win over Vuetify component
+ * styles without a single !important. Do not reorder those two imports.
+ */
+
+/* Tell Tailwind where to scan for class names. */
+@source '../../index.html';
+@source '../**/*.{vue,js}';
+
+/* ------------------------------------------------------------------ *
+ * Theme tokens
+ * Mirrors src/design/tokens.js — keep the two in sync.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #0f0e0c;
+  --color-basalt: #1c1a17;
+  --color-slate: #2a2724;
+
+  /* Decoration only — 3.57:1 on bone, fails AA for body text. */
+  --color-adobe: #c6663d;
+  /* Accent text and buttons on light grounds. 6.28:1 on bone. */
+  --color-adobe-deep: #8f4526;
+  /* Accent text on dark grounds. 8.40:1 on ink. */
+  --color-adobe-light: #e39a75;
+
+  --color-pinon: #4a5d46;
+  --color-pinon-light: #8fa88a;
+
+  --color-sand: #e8dfd3;
+  --color-bone: #f7f4ef;
+  --color-dusk: #6e5f52;
+
+  --color-success: #3f6b4a;
+  --color-error: #a33a2b;
+
+  --font-display: 'Archivo Variable', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Karla Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Display sizes carry their own tight leading. */
+  --text-display-sm: 2rem;
+  --text-display-sm--line-height: 0.95;
+  --text-display: 2.75rem;
+  --text-display--line-height: 0.92;
+  --text-display-lg: 4rem;
+  --text-display-lg--line-height: 0.88;
+  --text-display-xl: 5.5rem;
+  --text-display-xl--line-height: 0.86;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header height, so in-page anchors don't land under it. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-basalt);
+    font-family: var(--font-body);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-adobe);
+    color: var(--color-bone);
+  }
+
+  /* One consistent focus treatment everywhere, including inside Vuetify. */
+  :focus-visible {
+    outline: 2px solid var(--color-adobe-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Dark sections need the light accent to stay visible. */
+  .on-dark :focus-visible {
+    outline-color: var(--color-adobe-light);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilities
+ * ------------------------------------------------------------------ */
+
+/**
+ * The display treatment: Archivo's real width axis pushed wide. This is genuine
+ * variable-font data, not a horizontal scale transform, so the strokes stay
+ * correctly weighted.
+ */
+@utility type-display {
+  font-family: var(--font-display);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+/** Eyebrows, labels, and data. Archivo at normal width, letterspaced open. */
+@utility type-label {
+  font-family: var(--font-display);
+  font-stretch: 100%;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/** Standard page gutter + max width. Used by every section. */
+@utility shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Vuetify overrides
+ * Only what the contact form needs. Vuetify's layers rank below Tailwind's,
+ * so these live in a plain (unlayered) block to beat both.
+ * ------------------------------------------------------------------ */
+.v-field {
+  border-radius: 0 !important;
+  font-family: var(--font-body) !important;
+}
+
+.v-field__outline {
+  --v-field-border-opacity: 1;
+}
+
+.v-label,
+.v-field__input,
+.v-messages__message {
+  font-family: var(--font-body) !important;
+}
+
+.v-messages__message {
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  padding-top: 0.25rem;
+}
+
+/* Vuetify paints its own app background; Tailwind owns every surface here. */
+.v-application,
+.v-application__wrap {
+  background: transparent !important;
+  min-height: 0 !important;
+}

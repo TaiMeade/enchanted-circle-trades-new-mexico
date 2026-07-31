@@ -1,0 +1,62 @@
+[
+  {
+    "id": "r1",
+    "author": "Sample Review",
+    "location": "Taos, NM",
+    "rating": 5,
+    "date": "2026-05-18",
+    "text": "Placeholder text standing in for a real customer review. Replace this entry with an actual review before launch — see README.md for how.",
+    "source": "Google",
+    "placeholder": true
+  },
+  {
+    "id": "r2",
+    "author": "Sample Review",
+    "location": "Angel Fire, NM",
+    "rating": 5,
+    "date": "2026-04-02",
+    "text": "Placeholder text standing in for a real customer review. Replace this entry with an actual review before launch — see README.md for how.",
+    "source": "Google",
+    "placeholder": true
+  },
+  {
+    "id": "r3",
+    "author": "Sample Review",
+    "location": "Eagle Nest, NM",
+    "rating": 5,
+    "date": "2026-02-27",
+    "text": "Placeholder text standing in for a real customer review. Replace this entry with an actual review before launch — see README.md for how.",
+    "source": "Facebook",
+    "placeholder": true
+  },
+  {
+    "id": "r4",
+    "author": "Sample Review",
+    "location": "Questa, NM",
+    "rating": 4,
+    "date": "2026-01-14",
+    "text": "Placeholder text standing in for a real customer review. Replace this entry with an actual review before launch — see README.md for how.",
+    "source": "Google",
+    "placeholder": true
+  },
+  {
+    "id": "r5",
+    "author": "Sample Review",
+    "location": "Red River, NM",
+    "rating": 5,
+    "date": "2025-11-09",
+    "text": "Placeholder text standing in for a real customer review. Replace this entry with an actual review before launch — see README.md for how.",
+    "source": "Google",
+    "placeholder": true
+  },
+  {
+    "id": "r6",
+    "author": "Sample Review",
+    "location": "Arroyo Seco, NM",
+    "rating": 5,
+    "date": "2025-09-21",
+    "text": "Placeholder text standing in for a real customer review. Replace this entry with an actual review before launch — see README.md for how.",
+    "source": "Google",
+    "placeholder": true
+  }
+]

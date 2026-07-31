@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "remodels",
+    "name": "Kitchen & Bath Remodels",
+    "summary": "Full teardown and rebuild of the two rooms that get used hardest.",
+    "description": "Kitchens and bathrooms touch every trade at once — framing, plumbing, electrical, tile, and finish carpentry all have to land in the right order. Running them with one crew means no waiting on a subcontractor who never called back, and no finger-pointing when something doesn't line up.",
+    "bullets": [
+      "Cabinet layout, install, and hardware",
+      "Countertop templating and fitting",
+      "Tile surrounds, backsplashes, and shower pans",
+      "Fixture and appliance rough-in",
+      "Ventilation and lighting"
+    ],
+    "icon": "counter",
+    "featured": true
+  },
+  {
+    "slug": "renovations",
+    "name": "Home Renovations & Additions",
+    "summary": "Reworking layout, structure, and systems — not just surfaces.",
+    "description": "Opening up a wall, finishing a basement, converting a garage, or adding a room. Older adobe and frame homes around Taos hide surprises behind the drywall, so we open things up carefully and tell you what we find before it becomes a change order.",
+    "bullets": [
+      "Load-bearing wall removal with proper headers",
+      "Room additions and garage conversions",
+      "Basement and attic finishing",
+      "Window and exterior door replacement",
+      "Insulation and weatherization"
+    ],
+    "icon": "home",
+    "featured": true
+  },
+  {
+    "slug": "plumbing",
+    "name": "Plumbing",
+    "summary": "Repairs, replacements, and rough-in for remodels.",
+    "description": "Leaks, failed water heaters, frozen lines, and fixture swaps, plus full rough-in when a remodel needs new supply and drain runs. Winter at this elevation is hard on pipes — uninsulated runs in crawl spaces and exterior walls are the usual culprit.",
+    "bullets": [
+      "Leak location and pipe repair",
+      "Water heater replacement",
+      "Fixture, faucet, and toilet installation",
+      "Drain clearing and line replacement",
+      "Freeze protection and pipe insulation"
+    ],
+    "icon": "plumbing",
+    "featured": true
+  },
+  {
+    "slug": "electrical",
+    "name": "Electrical",
+    "summary": "Panel work, new circuits, lighting, and fault-finding.",
+    "description": "Adding circuits for a remodel, replacing an undersized panel, tracing a breaker that keeps tripping, or putting in the lighting a room actually needs. Older homes here often run knob-and-tube or ungrounded two-wire, which is worth addressing before it forces the issue.",
+    "bullets": [
+      "Panel and breaker replacement",
+      "New circuits and dedicated appliance runs",
+      "Interior, exterior, and recessed lighting",
+      "Outlet, switch, and GFCI installation",
+      "Troubleshooting shorts and dead circuits"
+    ],
+    "icon": "electrical",
+    "featured": true
+  },
+  {
+    "slug": "carpentry",
+    "name": "Carpentry & Finish Work",
+    "summary": "Framing through trim — the structure and the details on top of it.",
+    "description": "Rough framing for walls, decks, and roofs, and the finish work that decides whether a room reads as finished: trim, doors, built-ins, and shelving. Custom work is often the honest answer in older homes, where nothing is square and stock sizes don't fit.",
+    "bullets": [
+      "Wall, deck, and roof framing",
+      "Interior and exterior door hanging",
+      "Baseboard, casing, and crown",
+      "Built-in shelving and cabinetry",
+      "Stair and railing repair"
+    ],
+    "icon": "carpentry",
+    "featured": true
+  },
+  {
+    "slug": "drywall-and-paint",
+    "name": "Drywall & Paint",
+    "summary": "Hanging, taping, texture matching, and interior or exterior painting.",
+    "description": "New drywall for remodels, patching after other work, and texture that matches what's already on the wall so the repair doesn't advertise itself. Painting inside and out, including the prep that determines how long the finish lasts in high-desert sun.",
+    "bullets": [
+      "Hanging, taping, and finishing",
+      "Texture matching and patch repair",
+      "Water and settling damage repair",
+      "Interior painting and staining",
+      "Exterior prep, priming, and paint"
+    ],
+    "icon": "paint",
+    "featured": false
+  },
+  {
+    "slug": "tile-and-flooring",
+    "name": "Tile & Flooring",
+    "summary": "Tile, hardwood, laminate, and vinyl over a floor that's actually flat.",
+    "description": "Flooring shows every flaw underneath it, so most of the work is subfloor prep and leveling before anything gets laid. Tile in wet areas gets waterproofed properly — that detail is invisible when it's done right and expensive when it isn't.",
+    "bullets": [
+      "Subfloor repair and leveling",
+      "Floor, wall, and shower tile",
+      "Waterproofing in wet areas",
+      "Hardwood, laminate, and luxury vinyl",
+      "Transitions, thresholds, and trim"
+    ],
+    "icon": "tile",
+    "featured": false
+  },
+  {
+    "slug": "handyman",
+    "name": "General Handyman & Repairs",
+    "summary": "The list of small jobs that never quite justifies its own call.",
+    "description": "Doors that stick, a railing that wobbles, a fan that needs mounting, drywall to patch, weatherstripping to replace. Small jobs get batched into one visit, which is cheaper than booking a separate trade for each line on the list.",
+    "bullets": [
+      "Door and window adjustment",
+      "Fixture and ceiling fan mounting",
+      "Drywall patching and touch-up",
+      "Shelving, mounting, and assembly",
+      "Seasonal maintenance and punch lists"
+    ],
+    "icon": "wrench",
+    "featured": true
+  }
+]
