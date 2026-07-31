@@ -187,10 +187,22 @@ gh api repos/TaiMeade/enchanted-circle-trades-new-mexico/pages -X POST -f build_
 
 ### SPA routing on Pages
 
-Pages has no rewrite rules, so a hard refresh of `/services/plumbing` would 404.
-`scripts/copy-404.mjs` runs after every build and copies `index.html` to `404.html`,
-which Pages serves for unmatched paths — the app then boots and the router resolves the
-real URL. Keep that script wired into the `build` script.
+Pages serves static files with no rewrite rules, so a direct request for
+`/services/plumbing` finds no file. `scripts/postbuild.mjs` runs after every build and
+handles this two ways:
+
+1. **Writes a real `index.html` at every known route** — `dist/services/index.html`,
+   `dist/services/plumbing/index.html`, and so on. These respond **200**.
+2. **Copies `index.html` to `404.html`** as a catch-all for genuinely unknown paths,
+   which renders the in-app not-found page.
+
+The first part matters for SEO. The common copy-`404.html`-and-done approach makes the
+site work for visitors, but every non-root URL still responds with a 404 status, and
+search engines will not index a page that 404s — which would leave `/services` and
+`/contact` invisible in search.
+
+Routes are derived from `services.json`, so adding a service automatically produces a
+static entry for it. Keep this script wired into the `build` script.
 
 ---
 
