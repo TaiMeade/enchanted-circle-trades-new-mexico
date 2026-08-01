@@ -1,6 +1,7 @@
 <script setup>
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import ContactModal from '@/components/contact/ContactModal.vue'
 </script>
 
 <template>
@@ -25,5 +26,13 @@ import AppFooter from '@/components/layout/AppFooter.vue'
     </main>
 
     <AppFooter />
+
+    <!--
+      Mounted once, here, so a single instance serves every "get an estimate"
+      button on the site. It teleports itself to <body> when opened.
+      Kept after AppHeader so that opening it from the mobile menu resolves in
+      the right order — the menu's scroll lock releases before the modal's.
+    -->
+    <ContactModal />
   </v-app>
 </template>

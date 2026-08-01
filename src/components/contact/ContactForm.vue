@@ -7,11 +7,19 @@ import useServices from '@/composables/useServices'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
+const props = defineProps({
+  /**
+   * Preselects the service picker. Set when the form is opened from a service
+   * detail page, so the visitor isn't asked something the page already knows.
+   */
+  service: { type: String, default: null },
+})
+
 const { serviceOptions } = useServices()
 const { loading, success, error, sendEmail, reset } = useEmailJS()
 
 const formRef = ref(null)
-const blank = () => ({ name: '', email: '', phone: '', service: null, message: '' })
+const blank = () => ({ name: '', email: '', phone: '', service: props.service, message: '' })
 const form = ref(blank())
 
 /**
@@ -57,116 +65,119 @@ function sendAnother() {
 }
 </script>
 
+<!--
+  Deliberately frame-less: the surrounding surface (currently the contact modal)
+  owns the border, background, and padding. Keeps the form reusable if it ever
+  needs to sit inline on a page again.
+-->
 <template>
-  <div class="border border-basalt/12 bg-bone p-7 sm:p-10">
-    <!-- Success state -->
-    <div v-if="success" class="py-6 text-center">
-      <AppIcon name="checkCircle" :size="44" class="mx-auto text-success" />
-      <h3 class="type-display mt-6 text-2xl text-basalt">Message sent</h3>
-      <p class="mx-auto mt-4 max-w-sm leading-relaxed text-pretty text-dusk">
-        Thanks — we'll get back to you shortly. If it's urgent, calling
-        {{ site.phone }} is faster.
+  <!-- Success state -->
+  <div v-if="success" class="py-6 text-center">
+    <AppIcon name="checkCircle" :size="44" class="mx-auto text-success" />
+    <h3 class="type-display mt-6 text-2xl text-basalt">Message sent</h3>
+    <p class="mx-auto mt-4 max-w-sm leading-relaxed text-pretty text-dusk">
+      Thanks — we'll get back to you shortly. If it's urgent, calling
+      {{ site.phone }} is faster.
+    </p>
+    <BaseButton variant="outline" class="mt-8" @click="sendAnother">
+      Send another message
+    </BaseButton>
+  </div>
+
+  <!-- Form -->
+  <v-form v-else ref="formRef" novalidate @submit.prevent="submit">
+    <div
+      v-if="!isConfigured"
+      class="mb-7 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-basalt"
+      role="alert"
+    >
+      <AppIcon name="alert" :size="18" class="mt-0.5 text-error" />
+      <p>
+        The form isn't available right now. Please call
+        <a :href="site.phoneHref" class="font-semibold underline">{{ site.phone }}</a>
+        or email
+        <a :href="`mailto:${site.email}`" class="font-semibold underline">{{ site.email }}</a>
+        .
       </p>
-      <BaseButton variant="outline" class="mt-8" @click="sendAnother">
-        Send another message
-      </BaseButton>
     </div>
 
-    <!-- Form -->
-    <v-form v-else ref="formRef" novalidate @submit.prevent="submit">
-      <div
-        v-if="!isConfigured"
-        class="mb-7 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-basalt"
-        role="alert"
-      >
-        <AppIcon name="alert" :size="18" class="mt-0.5 text-error" />
-        <p>
-          The form isn't available right now. Please call
-          <a :href="site.phoneHref" class="font-semibold underline">{{ site.phone }}</a>
-          or email
-          <a :href="`mailto:${site.email}`" class="font-semibold underline">{{ site.email }}</a>
-          .
-        </p>
-      </div>
-
-      <div class="grid gap-x-5 sm:grid-cols-2">
-        <v-text-field
-          v-model="form.name"
-          label="Name"
-          autocomplete="name"
-          :rules="[rules.required]"
-          :disabled="!isConfigured"
-        />
-        <v-text-field
-          v-model="form.email"
-          label="Email"
-          type="email"
-          autocomplete="email"
-          :rules="[rules.required, rules.email]"
-          :disabled="!isConfigured"
-        />
-        <v-text-field
-          v-model="form.phone"
-          label="Phone (optional)"
-          type="tel"
-          autocomplete="tel"
-          :rules="[rules.phone]"
-          :disabled="!isConfigured"
-        />
-        <v-select
-          v-model="form.service"
-          label="What do you need?"
-          :items="serviceOptions"
-          :rules="[rules.required]"
-          :disabled="!isConfigured"
-        />
-      </div>
-
-      <v-textarea
-        v-model="form.message"
-        label="Tell us about the job"
-        placeholder="Rough size, timing, and anything you already know about what's involved."
-        rows="5"
-        :rules="[rules.required, rules.message]"
+    <div class="grid gap-x-5 sm:grid-cols-2">
+      <v-text-field
+        v-model="form.name"
+        label="Name"
+        autocomplete="name"
+        :rules="[rules.required]"
         :disabled="!isConfigured"
       />
+      <v-text-field
+        v-model="form.email"
+        label="Email"
+        type="email"
+        autocomplete="email"
+        :rules="[rules.required, rules.email]"
+        :disabled="!isConfigured"
+      />
+      <v-text-field
+        v-model="form.phone"
+        label="Phone (optional)"
+        type="tel"
+        autocomplete="tel"
+        :rules="[rules.phone]"
+        :disabled="!isConfigured"
+      />
+      <v-select
+        v-model="form.service"
+        label="What do you need?"
+        :items="serviceOptions"
+        :rules="[rules.required]"
+        :disabled="!isConfigured"
+      />
+    </div>
 
-      <!-- Honeypot — off-screen, skipped by keyboard, hidden from screen readers. -->
-      <div class="pointer-events-none absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label for="ect-company">Company (leave this empty)</label>
-        <input
-          id="ect-company"
-          v-model="honeypot"
-          type="text"
-          tabindex="-1"
-          autocomplete="off"
-          aria-hidden="true"
-        />
-      </div>
+    <v-textarea
+      v-model="form.message"
+      label="Tell us about the job"
+      placeholder="Rough size, timing, and anything you already know about what's involved."
+      rows="5"
+      :rules="[rules.required, rules.message]"
+      :disabled="!isConfigured"
+    />
 
-      <div
-        v-if="error"
-        class="mb-6 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-basalt"
-        role="alert"
-      >
-        <AppIcon name="alert" :size="18" class="mt-0.5 text-error" />
-        <p>{{ error }}</p>
-      </div>
+    <!-- Honeypot — off-screen, skipped by keyboard, hidden from screen readers. -->
+    <div class="pointer-events-none absolute -left-[9999px] h-px w-px overflow-hidden">
+      <label for="ect-company">Company (leave this empty)</label>
+      <input
+        id="ect-company"
+        v-model="honeypot"
+        type="text"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+    </div>
 
-      <BaseButton
-        type="submit"
-        size="lg"
-        :disabled="loading || !isConfigured"
-        block
-        :arrow="!loading"
-      >
-        {{ loading ? 'Sending…' : 'Send message' }}
-      </BaseButton>
+    <div
+      v-if="error"
+      class="mb-6 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-basalt"
+      role="alert"
+    >
+      <AppIcon name="alert" :size="18" class="mt-0.5 text-error" />
+      <p>{{ error }}</p>
+    </div>
 
-      <p class="mt-5 text-center text-sm text-dusk">
-        Or call
-        <a :href="site.phoneHref" class="text-adobe-deep underline">{{ site.phone }}</a>
-      </p>
-    </v-form>
-  </div>
+    <BaseButton
+      type="submit"
+      size="lg"
+      :disabled="loading || !isConfigured"
+      block
+      :arrow="!loading"
+    >
+      {{ loading ? 'Sending…' : 'Send message' }}
+    </BaseButton>
+
+    <p class="mt-5 text-center text-sm text-dusk">
+      Or call
+      <a :href="site.phoneHref" class="text-adobe-deep underline">{{ site.phone }}</a>
+    </p>
+  </v-form>
 </template>

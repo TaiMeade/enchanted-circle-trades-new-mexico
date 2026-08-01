@@ -34,12 +34,8 @@ const routes = [
     component: () => import('@/views/ReviewsView.vue'),
     meta: { title: `Reviews | ${site.shortName}` },
   },
-  {
-    path: '/contact',
-    name: 'contact',
-    component: () => import('@/views/ContactView.vue'),
-    meta: { title: `Contact | ${site.shortName}` },
-  },
+  // No /contact route — the contact form is a modal, opened from anywhere via
+  // `openContactModal()` in src/composables/useContactModal.js.
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',

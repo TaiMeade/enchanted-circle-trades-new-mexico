@@ -30,13 +30,9 @@ const services = JSON.parse(
   await readFile(fileURLToPath(new URL('../src/data/services.json', import.meta.url)), 'utf8')
 )
 
-const routes = [
-  'services',
-  'work',
-  'reviews',
-  'contact',
-  ...services.map((service) => `services/${service.slug}`),
-]
+// Mirrors src/router/index.js. There is deliberately no 'contact' entry — the
+// contact form is a modal, not a route.
+const routes = ['services', 'work', 'reviews', ...services.map((s) => `services/${s.slug}`)]
 
 const shell = await readFile(dist('index.html'), 'utf8')
 

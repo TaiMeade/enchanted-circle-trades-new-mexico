@@ -128,9 +128,37 @@ the placeholders are replaced — there is no flag to remember to switch off.
 
 ---
 
-## EmailJS
+## The contact form
 
-The contact form posts through a shared EmailJS account used across several sites. The
+The form is a **modal, not a route** — there is no `/contact` page. Any button anywhere
+opens it:
+
+```js
+import { openContactModal } from '@/composables/useContactModal'
+
+openContactModal()             // blank form
+openContactModal('Plumbing')   // service picker preselected
+```
+
+State is a module-level ref in `src/composables/useContactModal.js`, and a single
+`ContactModal` instance is mounted in `App.vue`. Service detail pages pass their own
+service name, so a visitor arriving from `/services/plumbing` isn't asked a question the
+page already answered.
+
+`ContactForm.vue` itself carries no border, background, or padding — the surrounding
+surface owns those, which is what lets it drop into the modal cleanly (or back onto a
+page later, if that's ever wanted).
+
+**It is loaded on demand.** The form pulls in Vuetify's form components and the EmailJS
+SDK — about 100 kB gzipped, more than the rest of the site's JavaScript combined. Routing
+used to code-split that away automatically; a modal mounted in `App.vue` would instead
+put it in the main bundle for every visitor on every page. So `ContactModal` loads it via
+`defineAsyncComponent` and warms the chunk on idle after mount. **Do not turn that into a
+plain import** — it quadruples the initial payload.
+
+### EmailJS
+
+The form posts through a shared EmailJS account used across several sites. The
 template's *To Email* field is `{{to_email}}`, so one template delivers to any business
 by varying that parameter.
 
@@ -160,13 +188,13 @@ To set them from the local `.env` without typing values on the command line:
 gh secret set --env-file .env
 ```
 
-### Allowed Origins
+#### Allowed Origins
 
 These keys are public by design; they are locked down by origin instead. Add
 `https://taimeade.github.io` to **Allowed Origins** in the EmailJS dashboard so the key
 only works from your sites.
 
-### Spam
+#### Spam
 
 The form includes a honeypot field that real visitors never see. Submissions that fill it
 are dropped silently rather than being reported as failures.
@@ -198,8 +226,8 @@ handles this two ways:
 
 The first part matters for SEO. The common copy-`404.html`-and-done approach makes the
 site work for visitors, but every non-root URL still responds with a 404 status, and
-search engines will not index a page that 404s — which would leave `/services` and
-`/contact` invisible in search.
+search engines will not index a page that 404s — which would leave `/services`,
+`/work`, and `/reviews` invisible in search.
 
 Routes are derived from `services.json`, so adding a service automatically produces a
 static entry for it. Keep this script wired into the `build` script.
@@ -215,13 +243,13 @@ src/
 │   ├── tokens.js         Palette + font stacks (feeds the Vuetify theme)
 │   └── icons.js          Icon registry — what keeps @mdi/js tree-shaken
 ├── data/*.json           Services, reviews, projects, FAQs
-├── composables/          Data access, EmailJS, focus trap
+├── composables/          Data access, EmailJS, focus trap, contact modal state
 ├── components/
 │   ├── layout/           Header, footer, section headings
 │   ├── ui/               Buttons, cards, icons, the Enchanted Circle ring
 │   ├── home/             Home page sections
-│   └── contact/          Contact form
-└── views/                One per route
+│   └── contact/          The contact modal and the form inside it
+└── views/                One per route (no ContactView — the form is a modal)
 ```
 
 ### Tailwind and Vuetify together

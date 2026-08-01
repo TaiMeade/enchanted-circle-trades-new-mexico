@@ -1,18 +1,20 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import site from '@/config/site'
 import useFocusTrap from '@/composables/useFocusTrap'
+import { openContactModal } from '@/composables/useContactModal'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import LogoMark from '@/components/ui/LogoMark.vue'
 
+// Contact is not in here: it opens the modal rather than navigating, so it is
+// rendered as a button alongside these.
 const links = [
   { label: 'Services', to: { name: 'services' } },
   { label: 'Our work', to: { name: 'work' } },
   { label: 'Reviews', to: { name: 'reviews' } },
-  { label: 'Contact', to: { name: 'contact' } },
 ]
 
 const route = useRoute()
@@ -41,6 +43,18 @@ watch(
   () => route.fullPath,
   () => (menuOpen.value = false)
 )
+
+/*
+ * Both the mobile menu and the modal lock body scroll and manage focus. Letting
+ * the menu finish closing before the modal opens keeps those two hand-offs from
+ * racing — otherwise the menu's teardown can strip the scroll lock the modal
+ * just applied.
+ */
+async function openContactFromMenu() {
+  menuOpen.value = false
+  await nextTick()
+  openContactModal()
+}
 </script>
 
 <template>
@@ -79,6 +93,15 @@ watch(
         >
           {{ link.label }}
         </RouterLink>
+
+        <button
+          type="button"
+          class="type-label py-2 transition-colors duration-200"
+          :class="overHero ? 'text-bone/70 hover:text-bone' : 'text-basalt/70 hover:text-basalt'"
+          @click="openContactModal()"
+        >
+          Contact
+        </button>
       </nav>
 
       <div class="hidden items-center gap-5 lg:flex">
@@ -93,9 +116,9 @@ watch(
           {{ site.phone }}
         </a>
         <BaseButton
-          :to="{ name: 'contact' }"
           :variant="overHero ? 'outlineLight' : 'solid'"
           size="sm"
+          @click="openContactModal()"
         >
           Free estimate
         </BaseButton>
@@ -137,6 +160,14 @@ watch(
             {{ link.label }}
           </RouterLink>
 
+          <button
+            type="button"
+            class="type-display border-b border-bone/10 py-5 text-left text-2xl text-bone"
+            @click="openContactFromMenu"
+          >
+            Contact
+          </button>
+
           <a
             :href="site.phoneHref"
             class="type-display flex items-center gap-3 border-b border-bone/10 py-5 text-2xl text-bone"
@@ -145,7 +176,7 @@ watch(
             {{ site.phone }}
           </a>
 
-          <BaseButton :to="{ name: 'contact' }" size="lg" class="mt-8" block arrow>
+          <BaseButton size="lg" class="mt-8" block arrow @click="openContactFromMenu">
             Get a free estimate
           </BaseButton>
 

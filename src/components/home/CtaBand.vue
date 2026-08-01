@@ -1,5 +1,6 @@
 <script setup>
 import site from '@/config/site'
+import { openContactModal } from '@/composables/useContactModal'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import VigaRule from '@/components/ui/VigaRule.vue'
 </script>
@@ -20,10 +21,10 @@ import VigaRule from '@/components/ui/VigaRule.vue'
 
       <div class="flex shrink-0 flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row">
         <BaseButton
-          :to="{ name: 'contact' }"
           size="lg"
           class="bg-bone! text-ink! hover:bg-basalt! hover:text-bone!"
           arrow
+          @click="openContactModal()"
         >
           Get a free estimate
         </BaseButton>

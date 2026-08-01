@@ -1,4 +1,5 @@
 <script setup>
+import { openContactModal } from '@/composables/useContactModal'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import VigaRule from '@/components/ui/VigaRule.vue'
 </script>
@@ -21,7 +22,9 @@ import VigaRule from '@/components/ui/VigaRule.vue'
         <BaseButton :to="{ name: 'services' }" variant="outlineLight" size="lg">
           Services
         </BaseButton>
-        <BaseButton :to="{ name: 'contact' }" variant="outlineLight" size="lg">Contact</BaseButton>
+        <BaseButton variant="outlineLight" size="lg" @click="openContactModal()">
+          Contact
+        </BaseButton>
       </div>
     </div>
   </section>

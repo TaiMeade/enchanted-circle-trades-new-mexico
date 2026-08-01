@@ -3,6 +3,7 @@ import { computed, watchEffect } from 'vue'
 
 import site from '@/config/site'
 import useServices from '@/composables/useServices'
+import { openContactModal } from '@/composables/useContactModal'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import PageHeader from '@/components/layout/PageHeader.vue'
@@ -68,7 +69,8 @@ watchEffect(() => {
           <p class="mt-4 text-[0.9375rem] leading-relaxed text-pretty text-dusk">
             Send over the details and you'll get a free written estimate back.
           </p>
-          <BaseButton :to="{ name: 'contact' }" class="mt-7" block arrow>
+          <!-- Preselects the picker — this page already knows the answer. -->
+          <BaseButton class="mt-7" block arrow @click="openContactModal(service.name)">
             Get a free estimate
           </BaseButton>
           <BaseButton :href="site.phoneHref" variant="outline" class="mt-3" icon="phone" block>

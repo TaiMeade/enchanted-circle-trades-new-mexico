@@ -1,5 +1,6 @@
 <script setup>
 import site from '@/config/site'
+import { openContactModal } from '@/composables/useContactModal'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import EnchantedRing from '@/components/ui/EnchantedRing.vue'
 import SectionHeading from '@/components/layout/SectionHeading.vue'
@@ -23,7 +24,7 @@ import SectionHeading from '@/components/layout/SectionHeading.vue'
           it often still works out.
         </p>
 
-        <BaseButton :to="{ name: 'contact' }" variant="outlineLight" class="mt-10" arrow>
+        <BaseButton variant="outlineLight" class="mt-10" arrow @click="openContactModal()">
           Check your address
         </BaseButton>
       </div>

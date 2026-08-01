@@ -1,6 +1,7 @@
 <script setup>
 import site from '@/config/site'
 import useServices from '@/composables/useServices'
+import { openContactModal } from '@/composables/useContactModal'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import VigaRule from '@/components/ui/VigaRule.vue'
 
@@ -50,7 +51,7 @@ const { services } = useServices()
       </p>
 
       <div class="rise mt-10 flex flex-wrap items-center gap-4" style="--delay: 420ms">
-        <BaseButton :to="{ name: 'contact' }" size="lg" arrow>Get a free estimate</BaseButton>
+        <BaseButton size="lg" arrow @click="openContactModal()">Get a free estimate</BaseButton>
         <BaseButton :href="site.phoneHref" variant="outlineLight" size="lg" icon="phone">
           {{ site.phone }}
         </BaseButton>
