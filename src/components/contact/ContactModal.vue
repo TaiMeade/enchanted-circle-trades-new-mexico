@@ -6,7 +6,7 @@ import site from '@/config/site'
 import useFocusTrap from '@/composables/useFocusTrap'
 import { useContactModal } from '@/composables/useContactModal'
 import AppIcon from '@/components/ui/AppIcon.vue'
-import VigaRule from '@/components/ui/VigaRule.vue'
+import RidgeRule from '@/components/ui/RidgeRule.vue'
 
 /*
  * The form drags in Vuetify's form components and the EmailJS SDK — together
@@ -25,7 +25,7 @@ const ContactForm = defineAsyncComponent({
   // Only shown if the chunk somehow hasn't arrived within 200ms — on a warmed
   // cache the form is already there and this never renders.
   delay: 200,
-  loadingComponent: () => h('p', { class: 'py-12 text-center text-sm text-dusk' }, 'Loading…'),
+  loadingComponent: () => h('p', { class: 'py-12 text-center text-sm text-stone' }, 'Loading…'),
 })
 
 onMounted(() => {
@@ -67,7 +67,7 @@ watch(() => route.fullPath, closeContactModal)
     <Transition name="modal">
       <div
         v-if="isOpen"
-        class="fixed inset-0 z-100 flex overflow-y-auto overscroll-contain bg-ink/75 p-4 backdrop-blur-sm sm:p-6"
+        class="fixed inset-0 z-100 flex overflow-y-auto overscroll-contain bg-pitch/80 p-4 backdrop-blur-sm sm:p-6"
         @click.self="closeContactModal"
       >
         <div
@@ -75,25 +75,27 @@ watch(() => route.fullPath, closeContactModal)
           role="dialog"
           aria-modal="true"
           aria-labelledby="contact-modal-title"
-          class="panel m-auto w-full max-w-2xl bg-bone shadow-2xl"
+          class="panel m-auto w-full max-w-2xl bg-snow shadow-2xl"
         >
-          <!-- Dark header, echoing the PageHeader treatment on the real routes. -->
-          <div class="on-dark relative bg-ink px-7 py-7 pr-16 text-bone sm:px-10 sm:py-8 sm:pr-20">
+          <!-- Dark header, so the modal reads as part of the page's night side. -->
+          <div
+            class="on-dark relative bg-pitch px-7 py-7 pr-16 text-snow sm:px-10 sm:py-8 sm:pr-20"
+          >
             <button
               type="button"
-              class="absolute top-5 right-5 p-2 text-bone/70 transition-colors hover:text-adobe-light sm:top-6 sm:right-6"
+              class="absolute top-4 right-4 p-3 text-snow/70 transition-colors hover:text-ember-light sm:top-5 sm:right-5"
               aria-label="Close"
               @click="closeContactModal"
             >
               <AppIcon name="close" :size="24" />
             </button>
 
-            <p class="type-label text-adobe-light">Contact</p>
-            <VigaRule class="mt-3 mb-4 text-bone/30" width="3rem" />
+            <p class="type-label text-ember-light">Contact</p>
+            <RidgeRule class="mt-3 mb-4 text-snow/35" width="3rem" />
             <h2 id="contact-modal-title" class="type-display text-2xl sm:text-3xl">
               Get a free estimate
             </h2>
-            <p class="mt-3 max-w-md text-[0.9375rem] leading-relaxed text-pretty text-bone/70">
+            <p class="mt-3 max-w-md text-[0.9375rem] leading-relaxed text-pretty text-snow/70">
               Tell us what needs doing and you'll get a written estimate back — no charge, no
               obligation.
             </p>
@@ -104,12 +106,12 @@ watch(() => route.fullPath, closeContactModal)
           </div>
 
           <div
-            class="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-basalt/10 bg-sand px-7 py-4 text-sm text-dusk sm:px-10"
+            class="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-spruce/12 bg-granite px-7 py-4 text-sm text-stone sm:px-10"
           >
-            <span>Mon–Fri {{ site.hours.weekdays }}</span>
+            <span>Mon–Sat {{ site.hours.weekdays }}</span>
             <a
               :href="`mailto:${site.email}`"
-              class="break-all transition-colors hover:text-adobe-deep"
+              class="break-all transition-colors hover:text-ember-deep"
             >
               {{ site.email }}
             </a>

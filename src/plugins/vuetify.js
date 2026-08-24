@@ -27,11 +27,11 @@ export default createVuetify({
       enchantedCircle: {
         dark: false,
         colors: {
-          primary: colors.adobeDeep,
-          secondary: colors.pinon,
-          accent: colors.adobe,
-          background: colors.bone,
-          surface: colors.bone,
+          primary: colors.emberDeep,
+          secondary: colors.spruce,
+          accent: colors.ember,
+          background: colors.snow,
+          surface: colors.snow,
           error: colors.error,
           success: colors.success,
         },
@@ -45,18 +45,18 @@ export default createVuetify({
     },
     VTextField: {
       variant: 'outlined',
-      density: 'comfortable',
+      density: 'default',
       color: 'primary',
       persistentPlaceholder: false,
     },
     VTextarea: {
       variant: 'outlined',
-      density: 'comfortable',
+      density: 'default',
       color: 'primary',
     },
     VSelect: {
       variant: 'outlined',
-      density: 'comfortable',
+      density: 'default',
       color: 'primary',
     },
   },

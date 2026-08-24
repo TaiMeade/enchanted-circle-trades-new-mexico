@@ -74,8 +74,8 @@ function sendAnother() {
   <!-- Success state -->
   <div v-if="success" class="py-6 text-center">
     <AppIcon name="checkCircle" :size="44" class="mx-auto text-success" />
-    <h3 class="type-display mt-6 text-2xl text-basalt">Message sent</h3>
-    <p class="mx-auto mt-4 max-w-sm leading-relaxed text-pretty text-dusk">
+    <h3 class="type-display mt-6 text-2xl text-spruce">Message sent</h3>
+    <p class="mx-auto mt-4 max-w-sm leading-relaxed text-pretty text-stone">
       Thanks — we'll get back to you shortly. If it's urgent, calling
       {{ site.phone }} is faster.
     </p>
@@ -88,7 +88,7 @@ function sendAnother() {
   <v-form v-else ref="formRef" novalidate @submit.prevent="submit">
     <div
       v-if="!isConfigured"
-      class="mb-7 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-basalt"
+      class="mb-7 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-spruce"
       role="alert"
     >
       <AppIcon name="alert" :size="18" class="mt-0.5 text-error" />
@@ -134,10 +134,16 @@ function sendAnother() {
       />
     </div>
 
+    <!--
+      Guidance goes in a persistent hint, not a placeholder. Vuetify renders a
+      textarea's placeholder underneath its resting label, so the two sat on top
+      of each other and neither could be read.
+    -->
     <v-textarea
       v-model="form.message"
       label="Tell us about the job"
-      placeholder="Rough size, timing, and anything you already know about what's involved."
+      hint="Rough size, timing, and anything you already know about what's involved."
+      persistent-hint
       rows="5"
       :rules="[rules.required, rules.message]"
       :disabled="!isConfigured"
@@ -158,7 +164,7 @@ function sendAnother() {
 
     <div
       v-if="error"
-      class="mb-6 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-basalt"
+      class="mb-6 flex items-start gap-3 border-l-2 border-error bg-error/8 px-4 py-3 text-sm text-spruce"
       role="alert"
     >
       <AppIcon name="alert" :size="18" class="mt-0.5 text-error" />
@@ -175,9 +181,11 @@ function sendAnother() {
       {{ loading ? 'Sending…' : 'Send message' }}
     </BaseButton>
 
-    <p class="mt-5 text-center text-sm text-dusk">
+    <p class="mt-5 text-center text-stone">
       Or call
-      <a :href="site.phoneHref" class="text-adobe-deep underline">{{ site.phone }}</a>
+      <a :href="site.phoneHref" class="font-medium text-ember-deep underline underline-offset-4">
+        {{ site.phone }}
+      </a>
     </p>
   </v-form>
 </template>

@@ -4,17 +4,26 @@ import { useRoute } from 'vue-router'
 
 import site from '@/config/site'
 import useFocusTrap from '@/composables/useFocusTrap'
+import useScrollSpy from '@/composables/useScrollSpy'
 import { openContactModal } from '@/composables/useContactModal'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import LogoMark from '@/components/ui/LogoMark.vue'
 
-// Contact is not in here: it opens the modal rather than navigating, so it is
-// rendered as a button alongside these.
+/*
+ * The site is one page, so these are in-page anchors rather than routes. They
+ * are still RouterLinks pointing at `{ path: '/', hash }` rather than plain
+ * <a href="#trades"> for one reason: from the 404 page there is no #trades to
+ * scroll to, and this form navigates home first and then scrolls. A bare anchor
+ * would silently do nothing there.
+ *
+ * Contact is a button — it opens the modal instead of navigating.
+ */
 const links = [
-  { label: 'Services', to: { name: 'services' } },
-  { label: 'Our work', to: { name: 'work' } },
-  { label: 'Reviews', to: { name: 'reviews' } },
+  { label: 'What we do', hash: '#trades' },
+  { label: 'How it works', hash: '#how' },
+  { label: 'Where we work', hash: '#area' },
+  { label: 'Questions', hash: '#faq' },
 ]
 
 const route = useRoute()
@@ -22,10 +31,12 @@ const scrolled = ref(false)
 const menuOpen = ref(false)
 const menuPanel = ref(null)
 
+const activeSection = useScrollSpy(links.map((link) => link.hash.slice(1)))
+
 useFocusTrap(menuPanel, menuOpen, () => (menuOpen.value = false))
 
-// The home hero is dark and full-bleed, so the header sits on top of it
-// unpainted until the page scrolls. Every other route starts solid.
+// The hero is dark and full-bleed, so the header sits on it unpainted until
+// the page scrolls. The 404 route starts solid.
 const overHero = computed(() => route.name === 'home' && !scrolled.value && !menuOpen.value)
 
 function handleScroll() {
@@ -55,6 +66,11 @@ async function openContactFromMenu() {
   await nextTick()
   openContactModal()
 }
+
+/** Anchor taps inside the mobile menu have to close it themselves. */
+function closeMenu() {
+  menuOpen.value = false
+}
 </script>
 
 <template>
@@ -62,71 +78,61 @@ async function openContactFromMenu() {
     class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
     :class="
       overHero
-        ? 'on-dark bg-transparent text-bone'
-        : 'border-b border-basalt/10 bg-bone/92 text-basalt backdrop-blur-md'
+        ? 'on-dark bg-transparent text-snow'
+        : 'border-b border-spruce/12 bg-snow/92 text-spruce backdrop-blur-md'
     "
   >
     <div class="shell flex h-18 items-center justify-between gap-6 lg:h-20">
       <RouterLink
         :to="{ name: 'home' }"
-        class="flex items-center gap-3"
+        class="flex items-center gap-3 py-2"
         :aria-label="`${site.name} — home`"
       >
         <LogoMark :size="30" />
-        <span class="type-display text-base leading-none tracking-tight sm:text-lg">
+        <span class="type-display text-base leading-none sm:text-lg">
           <span class="sm:hidden">{{ site.abbr }}</span>
           <span class="hidden sm:inline">Enchanted Circle</span>
-          <span class="hidden sm:inline" :class="overHero ? 'text-adobe-light' : 'text-adobe-deep'">
+          <span class="hidden sm:inline" :class="overHero ? 'text-ember-light' : 'text-ember-deep'">
             Trades
           </span>
         </span>
       </RouterLink>
 
-      <nav class="hidden items-center gap-9 lg:flex" aria-label="Main">
+      <nav class="hidden items-center gap-8 lg:flex" aria-label="Main">
         <RouterLink
           v-for="link in links"
           :key="link.label"
-          :to="link.to"
-          class="type-label relative py-2 transition-colors duration-200"
-          :class="overHero ? 'text-bone/70 hover:text-bone' : 'text-basalt/70 hover:text-basalt'"
-          active-class="nav-active"
+          :to="{ path: '/', hash: link.hash }"
+          class="relative flex min-h-11 items-center text-[0.9375rem] font-medium transition-colors duration-200"
+          :class="[
+            overHero ? 'text-snow/75 hover:text-snow' : 'text-stone hover:text-spruce',
+            activeSection === link.hash.slice(1) && 'nav-active',
+          ]"
+          :aria-current="activeSection === link.hash.slice(1) ? 'true' : undefined"
         >
           {{ link.label }}
         </RouterLink>
-
-        <button
-          type="button"
-          class="type-label py-2 transition-colors duration-200"
-          :class="overHero ? 'text-bone/70 hover:text-bone' : 'text-basalt/70 hover:text-basalt'"
-          @click="openContactModal()"
-        >
-          Contact
-        </button>
       </nav>
 
       <div class="hidden items-center gap-5 lg:flex">
         <a
           :href="site.phoneHref"
-          class="type-label flex items-center gap-2 transition-colors"
+          class="flex min-h-11 items-center gap-2 font-medium transition-colors"
           :class="
-            overHero ? 'text-bone hover:text-adobe-light' : 'text-basalt hover:text-adobe-deep'
+            overHero ? 'text-snow hover:text-ember-light' : 'text-spruce hover:text-ember-deep'
           "
         >
-          <AppIcon name="phone" :size="15" />
+          <AppIcon name="phone" :size="18" />
           {{ site.phone }}
         </a>
-        <BaseButton
-          :variant="overHero ? 'outlineLight' : 'solid'"
-          size="sm"
-          @click="openContactModal()"
-        >
+        <BaseButton :variant="overHero ? 'outlineLight' : 'solid'" @click="openContactModal()">
           Free estimate
         </BaseButton>
       </div>
 
       <button
         type="button"
-        class="-mr-2 p-2 lg:hidden"
+        class="-mr-2 p-3 lg:hidden"
         :aria-expanded="menuOpen"
         aria-controls="mobile-menu"
         :aria-label="menuOpen ? 'Close menu' : 'Open menu'"
@@ -136,73 +142,79 @@ async function openContactFromMenu() {
       </button>
     </div>
 
-    <!-- Mobile menu -->
-    <Transition
-      enter-active-class="transition-opacity duration-200"
-      leave-active-class="transition-opacity duration-150"
-      enter-from-class="opacity-0"
-      leave-to-class="opacity-0"
-    >
-      <div
-        v-if="menuOpen"
-        id="mobile-menu"
-        ref="menuPanel"
-        class="on-dark fixed inset-x-0 top-18 bottom-0 z-50 overflow-y-auto bg-ink text-bone lg:hidden"
+    <!--
+      ── Teleported on purpose. Do not move this back inside <header>. ──
+
+      The header carries `backdrop-blur-md` whenever it is not over the hero,
+      and `menuOpen` is one of the things that turns that state on. A
+      backdrop-filter makes an element the containing block for `position:
+      fixed` descendants, so a menu nested here resolved `top-18 bottom-0`
+      against the 72px-tall header instead of the viewport and computed to
+      exactly zero height: open, focus-trapped, scroll-locked, and invisible.
+
+      Teleporting it to <body> puts it outside that containing block. It sits at
+      z-40, under the header's z-50, so the close button stays on top of it.
+    -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition-opacity duration-200"
+        leave-active-class="transition-opacity duration-150"
+        enter-from-class="opacity-0"
+        leave-to-class="opacity-0"
       >
-        <nav class="shell flex flex-col py-8" aria-label="Main">
-          <RouterLink
-            v-for="link in links"
-            :key="link.label"
-            :to="link.to"
-            class="type-display border-b border-bone/10 py-5 text-2xl text-bone"
-            active-class="text-adobe-light!"
-          >
-            {{ link.label }}
-          </RouterLink>
+        <div
+          v-if="menuOpen"
+          id="mobile-menu"
+          ref="menuPanel"
+          class="on-dark fixed inset-x-0 top-18 bottom-0 z-40 overflow-y-auto bg-pitch text-snow lg:hidden"
+        >
+          <nav class="shell flex flex-col py-6" aria-label="Main">
+            <RouterLink
+              v-for="link in links"
+              :key="link.label"
+              :to="{ path: '/', hash: link.hash }"
+              class="type-display border-b border-snow/10 py-5 text-2xl text-snow"
+              @click="closeMenu"
+            >
+              {{ link.label }}
+            </RouterLink>
 
-          <button
-            type="button"
-            class="type-display border-b border-bone/10 py-5 text-left text-2xl text-bone"
-            @click="openContactFromMenu"
-          >
-            Contact
-          </button>
+            <a
+              :href="site.phoneHref"
+              class="type-display flex items-center gap-3 border-b border-snow/10 py-5 text-2xl text-snow"
+            >
+              <AppIcon name="phone" :size="22" class="text-ember-light" />
+              {{ site.phone }}
+            </a>
 
-          <a
-            :href="site.phoneHref"
-            class="type-display flex items-center gap-3 border-b border-bone/10 py-5 text-2xl text-bone"
-          >
-            <AppIcon name="phone" :size="22" class="text-adobe-light" />
-            {{ site.phone }}
-          </a>
+            <BaseButton size="lg" class="mt-8" block arrow @click="openContactFromMenu">
+              Get a free estimate
+            </BaseButton>
 
-          <BaseButton size="lg" class="mt-8" block arrow @click="openContactFromMenu">
-            Get a free estimate
-          </BaseButton>
-
-          <p class="type-label mt-8 text-bone/55">
-            Serving the Enchanted Circle · {{ site.address.locality }}
-          </p>
-        </nav>
-      </div>
-    </Transition>
+            <p class="mt-8 text-snow/65">
+              Serving all of Taos County · {{ site.address.locality }}
+            </p>
+          </nav>
+        </div>
+      </Transition>
+    </Teleport>
   </header>
 </template>
 
 <style scoped>
-/* The current page reads at full strength; the rest sit back. */
 .nav-active {
   color: inherit;
 }
 
-/* Active route marker: a viga tick under the label, not a full underline. */
+/* Current section marker: a single peak under the label, matching RidgeRule. */
 .nav-active::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0.75rem;
-  height: 2px;
+  width: 0.875rem;
+  height: 7px;
   background-color: currentColor;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 </style>

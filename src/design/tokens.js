@@ -5,51 +5,63 @@
  * strings to compute its own on-* contrast colors, so CSS variables won't do).
  * They are mirrored into Tailwind's `@theme` block in `src/styles/main.css`.
  *
- * ── If you change a color here, change it there too. ──
+ * ── The two files are kept honest by scripts/check-data.mjs, which parses both
+ * and fails the build if any value disagrees. Change one, change the other. ──
  *
- * Palette rationale — northern New Mexico high desert:
- * warm charcoal ground, adobe/terracotta accent, piñon green support.
+ * ── Palette rationale ──
+ * The Sangre de Cristo range above Taos is named for its alpenglow: the peaks
+ * turn red-orange at sunset over dark timbered slopes. That is where the two
+ * brand colors come from, and it sets the rule for how they are used:
+ *
+ *   Green is the mass. Orange is the light.
+ *
+ * `ember` never fills a large area — it is light catching an edge. A ridgeline
+ * rim, a rule, a focus ring, one button. Everything structural is green.
  */
 export const colors = Object.freeze({
-  /** Deepest ground. Hero and footer. */
-  ink: '#0F0E0C',
-  /** Warm charcoal base surface. */
-  basalt: '#1C1A17',
-  /** Raised surface on dark sections — cards, inputs. */
-  slate: '#2A2724',
+  /** Deepest ground, green-cast near-black. Hero and footer. `snow` on it: 17.1:1. */
+  pitch: '#0B1512',
+  /** Forest green. The primary dark surface. `snow` on it: 13.0:1. */
+  spruce: '#14302A',
+  /** Raised surfaces and borders on dark grounds. */
+  spruceLight: '#24483F',
 
   /**
-   * Terracotta accent. DECORATION ONLY — 3.57:1 on `bone`, which fails WCAG AA
-   * for body text. Use it for fills, rules, dots, and borders.
+   * Burnt orange. DECORATION ONLY — 3.71:1 on `snow`, which fails WCAG AA for
+   * body text. Use it for rims, rules, dots, and borders, never for words.
    */
-  adobe: '#C6663D',
+  ember: '#D4581F',
   /**
-   * Accessible accent. 6.28:1 on `bone`, 5.23:1 on `sand`. Use for any accent
-   * *text*, link, or button surface that carries `bone` type.
+   * Accessible accent. 6.15:1 on `snow`, 5.26:1 on `granite`. Use for any accent
+   * *text*, link, or button surface that carries `snow` type.
    */
-  adobeDeep: '#8F4526',
-  /** Light accent for use on dark grounds — 8.40:1 on `ink`. */
-  adobeLight: '#E39A75',
+  emberDeep: '#A03C0B',
+  /**
+   * Pressed / hovered state for a solid `emberDeep` surface. 8.60:1 with `snow`.
+   * Hover darkens rather than brightens on purpose: brightening toward `ember`
+   * would drop the button label to 3.71:1 the moment a pointer touched it.
+   */
+  emberDark: '#7C2E08',
+  /** Light accent for dark grounds — 9.03:1 on `pitch`, 6.87:1 on `spruce`. */
+  emberLight: '#F2A277',
 
-  /** Deep piñon green. Secondary accent, category chips. */
-  pinon: '#4A5D46',
-  /** Lighter piñon for dark grounds. */
-  pinonLight: '#8FA88A',
+  /** Cool grey-green mid surface — alternating sections. */
+  granite: '#E3E5DF',
+  /** Lightest ground. Default page background. */
+  snow: '#F5F6F3',
+  /** Muted secondary text. 6.03:1 on `snow`, 5.15:1 on `granite`. */
+  stone: '#55605B',
 
-  /** Warm mid surface — alternating sections. */
-  sand: '#E8DFD3',
-  /** Lightest paper. Default page background. */
-  bone: '#F7F4EF',
-  /** Muted brown-grey secondary text. 5.59:1 on `bone`, 4.65:1 on `sand`. */
-  dusk: '#6E5F52',
-
-  success: '#3F6B4A',
-  error: '#A33A2B',
+  /** 5.83:1 on `snow`. */
+  success: '#2F6B4A',
+  /** 6.38:1 on `snow`. */
+  error: '#A33220',
 })
 
 /**
  * Font stacks. `Archivo Variable` carries a real width axis (62%–125%), so the
- * expanded display treatment is genuine font data rather than a scale transform.
+ * condensed display treatment is genuine font data rather than a scale
+ * transform — the strokes stay correctly weighted as the letters narrow.
  */
 export const fonts = Object.freeze({
   display: "'Archivo Variable', 'Arial Narrow', system-ui, sans-serif",

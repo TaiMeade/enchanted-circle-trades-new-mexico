@@ -7,49 +7,64 @@
  * stays readable and an icon swap is a one-line change.
  *
  * Adding an icon: import the path, add it to `icons`, use the key in a template
- * or a data file.
+ * or a data file. scripts/check-data.mjs fails the build if services.json names
+ * a key that isn't here.
  */
 import {
   mdiAccountHardHatOutline,
   mdiAlertCircleOutline,
-  mdiArrowLeft,
   mdiArrowRight,
+  mdiCalendarCheckOutline,
   mdiCheck,
   mdiCheckCircleOutline,
-  mdiChevronDown,
   mdiClockOutline,
   mdiClose,
   mdiCountertop,
   mdiEmailOutline,
   mdiFacebook,
+  mdiFence,
+  mdiFileDocumentOutline,
   mdiFormatPaint,
   mdiGoogle,
   mdiGrid,
   mdiHandSaw,
   mdiHomePlus,
+  mdiHomeSearchOutline,
+  mdiHvac,
   mdiInstagram,
   mdiLightningBolt,
   mdiMapMarkerOutline,
   mdiMenu,
   mdiPhone,
+  mdiPhoneInTalkOutline,
   mdiPipeWrench,
-  mdiShieldCheckOutline,
-  mdiStar,
-  mdiStarHalfFull,
-  mdiStarOutline,
+  mdiSprout,
   mdiToolbox,
+  mdiTrashCanOutline,
+  mdiWall,
 } from '@mdi/js'
 
 export const icons = Object.freeze({
-  // Services — keys match the "icon" field in src/data/services.json
+  // Trades — keys match the "icon" field in src/data/services.json
   counter: mdiCountertop,
   home: mdiHomePlus,
   plumbing: mdiPipeWrench,
   electrical: mdiLightningBolt,
+  hvac: mdiHvac,
   carpentry: mdiHandSaw,
   paint: mdiFormatPaint,
   tile: mdiGrid,
+  concrete: mdiWall,
+  fencing: mdiFence,
+  landscaping: mdiSprout,
+  trash: mdiTrashCanOutline,
   wrench: mdiToolbox,
+
+  // How it works — the four steps, in order
+  call: mdiPhoneInTalkOutline,
+  schedule: mdiCalendarCheckOutline,
+  inspect: mdiHomeSearchOutline,
+  quote: mdiFileDocumentOutline,
 
   // Contact
   phone: mdiPhone,
@@ -61,22 +76,12 @@ export const icons = Object.freeze({
   menu: mdiMenu,
   close: mdiClose,
   arrowRight: mdiArrowRight,
-  arrowLeft: mdiArrowLeft,
-  chevronDown: mdiChevronDown,
   check: mdiCheck,
   checkCircle: mdiCheckCircleOutline,
   alert: mdiAlertCircleOutline,
-
-  // Trust markers
-  shield: mdiShieldCheckOutline,
   crew: mdiAccountHardHatOutline,
 
-  // Ratings
-  star: mdiStar,
-  starHalf: mdiStarHalfFull,
-  starEmpty: mdiStarOutline,
-
-  // Social
+  // Social — rendered only when the matching link in site.js is non-empty
   facebook: mdiFacebook,
   instagram: mdiInstagram,
   google: mdiGoogle,

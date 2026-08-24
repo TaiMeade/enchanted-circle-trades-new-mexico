@@ -4,14 +4,19 @@
  * Nothing in `src/components` or `src/views` should ever hardcode a phone
  * number, an email address, an address, or business hours. Import from here.
  *
- * ── FILLING IN REAL DETAILS ──
- * Every value marked PLACEHOLDER below is a stand-in. Replace the value, leave
- * the shape alone, and the whole site updates. Delete the PLACEHOLDER comment
- * once a value is confirmed so it is obvious what still needs attention.
+ * ── A NOTE ON CLAIMS ──
+ * This business is not yet licensed in New Mexico. Nothing on this site may
+ * say "licensed" or "insured" — New Mexico requires a license number in
+ * contractor advertising, and claiming a license you do not hold is its own
+ * problem. `credentials` below describes experience only, which is accurate
+ * and, for a new business, more persuasive than a badge anyway.
+ *
+ * When the New Mexico license comes through, add the number to `credentials`
+ * and update the statement. That is the only edit required.
  */
 
-/** PLACEHOLDER — swap in the real 10-digit number. Display + tel: both derive from this. */
-const PHONE_DIGITS = '5755550123'
+/** Confirmed with the owner. Display format and the tel: link both derive from this. */
+const PHONE_DIGITS = '5757700264'
 
 /** Formats 10 raw digits as (555) 555-5555. */
 function formatPhone(digits) {
@@ -19,16 +24,28 @@ function formatPhone(digits) {
 }
 
 export const site = Object.freeze({
-  /** Full legal / marketing name. */
+  /** Marketing name — headings, page title, structured data. */
   name: 'Enchanted Circle Trades New Mexico',
+  /**
+   * Registered entity name. Used in the footer copyright line and the
+   * structured data's legalName, which is where a real legal name belongs.
+   *
+   * The EIN is deliberately NOT stored here or anywhere else in this repo. It
+   * is a tax identifier, not a credential — publishing one invites fraudulent
+   * filings, and it does nothing for a visitor deciding whether to call.
+   */
+  legalName: 'Enchanted Circle Trades LLC',
   /** Shorter form for headers and repeated inline mentions. */
   shortName: 'Enchanted Circle Trades',
   /** Initials for the logo mark and tight spaces. */
   abbr: 'ECT',
 
-  tagline: 'One crew. Every trade.',
+  tagline: 'Every trade. One call.',
   description:
-    'Remodels, renovations, plumbing, electrical, carpentry, and general repair work for homes around the Enchanted Circle in northern New Mexico.',
+    'Remodels, renovations, plumbing, electrical, HVAC, carpentry, concrete, fencing, landscaping and general repairs for homes across Taos County, New Mexico.',
+
+  /** Owner. Named on the site because a one-crew business is a person. */
+  owner: 'Dave Perez',
 
   /** Confirmed. All contact-form submissions are delivered here. */
   email: 'dav.perez@proton.me',
@@ -36,7 +53,10 @@ export const site = Object.freeze({
   phone: formatPhone(PHONE_DIGITS),
   phoneHref: `tel:+1${PHONE_DIGITS}`,
 
-  /** PLACEHOLDER — mailing address. Set `street` to null to hide it site-wide. */
+  /**
+   * No public street address — the business works out of trucks, not a
+   * storefront. `street: null` keeps the address line off the site entirely.
+   */
   address: Object.freeze({
     street: null,
     city: 'Taos',
@@ -47,60 +67,69 @@ export const site = Object.freeze({
     },
   }),
 
-  /** PLACEHOLDER — business hours. `note` renders beneath the table. */
   hours: Object.freeze({
-    weekdays: '7:00 AM – 5:00 PM',
-    saturday: 'By appointment',
+    weekdays: '9:00 AM – 5:00 PM',
+    saturday: '9:00 AM – 5:00 PM',
     sunday: 'Closed',
-    note: 'Emergency and after-hours calls handled case by case — reach out and ask.',
+    note: 'Holiday hours vary. Emergency and after-hours calls are taken at a premium rate — dropping a job in progress, or working past hours, costs more.',
   }),
 
   /**
-   * The Enchanted Circle byway towns, with each town's real compass bearing from
-   * the center of the loop (degrees clockwise from north). The service-area ring
-   * places the towns at these bearings, so the diagram reflects actual geography
-   * rather than five evenly spaced decorative dots.
-   *
-   * PLACEHOLDER — confirm the covered towns and the drive notes.
+   * How fast a caller actually hears back. This is the single strongest thing
+   * this business can promise right now, so it is a first-class fact rather
+   * than a line buried in some component.
    */
+  responseTime: 'within a few hours — often within minutes',
+
+  /** Towns covered as a matter of course. Confirmed with the owner. */
   serviceArea: Object.freeze([
-    Object.freeze({ name: 'Red River', bearing: 6, note: 'North end of the loop' }),
-    Object.freeze({ name: 'Eagle Nest', bearing: 90, note: 'Moreno Valley' }),
-    Object.freeze({ name: 'Angel Fire', bearing: 145, note: 'Resort and second homes' }),
-    Object.freeze({ name: 'Taos', bearing: 219, note: 'Home base' }),
-    Object.freeze({ name: 'Questa', bearing: 318, note: 'Upper Río Grande' }),
-  ]),
-
-  /** Towns just off the byway that are still covered. PLACEHOLDER — confirm. */
-  nearbyAreas: Object.freeze([
-    'Arroyo Seco',
+    'Taos',
     'Ranchos de Taos',
+    'Arroyo Seco',
+    'Arroyo Hondo',
     'El Prado',
-    'Taos Ski Valley',
-    'Cerro',
+    'Questa',
+    'Red River',
+    'Elizabethtown',
+    'Eagle Nest',
+    'Angel Fire',
   ]),
 
-  /** PLACEHOLDER — leave a value empty and its icon is hidden automatically. */
+  /** Everything past the named towns. Stated plainly, travel fee included. */
+  radius: Object.freeze({
+    miles: 50,
+    note: 'Anywhere within about 50 miles of Taos is a normal call. Past that we can still come out, but a travel fee gets added to the job.',
+  }),
+
+  /** Leave a value empty and its icon is hidden automatically. */
   social: Object.freeze({
     facebook: '',
     instagram: '',
     google: '',
   }),
 
-  /** PLACEHOLDER — confirm the license number and insurance wording before launch. */
+  /**
+   * Experience, not credentials.
+   *
+   * `nmLicensePending` drives the honest note about where New Mexico licensing
+   * stands. Set it to false and add `licenseNumber` once the license is issued.
+   *
+   * Note: the business IS registered with the state as an LLC and has an EIN.
+   * Neither is a contractor's license. A New Mexico contractor's license is
+   * issued by the Regulation and Licensing Department's Construction
+   * Industries Division (a GB-98, GB-2 or similar classification), and that is
+   * the credential this flag tracks — it is the one that advertising rules and
+   * homeowners actually mean. Do not flip this because the LLC exists.
+   */
   credentials: Object.freeze({
-    licensed: true,
-    insured: true,
+    yearsExperience: 15,
+    priorLicense: 'six of them as a licensed general contractor in Nevada',
+    nmLicensePending: true,
     licenseNumber: '',
-    /** Kept generic on purpose. Do not claim a specific license until confirmed. */
-    statement: 'Licensed and insured in the State of New Mexico.',
   }),
 
-  /** Rough founding year, used for the "years in the trade" line. PLACEHOLDER. */
-  foundedYear: 2015,
+  /** The year the business started operating in northern New Mexico. */
+  foundedYear: 2025,
 })
-
-/** Years in business, recomputed on load so it never goes stale. */
-export const yearsInBusiness = new Date().getFullYear() - site.foundedYear
 
 export default site

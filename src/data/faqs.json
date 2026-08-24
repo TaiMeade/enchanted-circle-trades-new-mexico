@@ -1,26 +1,30 @@
 [
   {
-    "question": "How far do you travel?",
-    "answer": "Anywhere on the Enchanted Circle — Taos, Questa, Red River, Eagle Nest, Angel Fire — plus the surrounding communities. If you are just outside that loop, ask anyway; it often still works out."
+    "question": "How soon will I hear back?",
+    "answer": "Within a few hours, and often within minutes. Call and we will ask where you are and what is going on, then find a time that works for both of us."
   },
   {
     "question": "Do you charge for estimates?",
-    "answer": "No. Send over what you are trying to get done, along with photos if you have them, and you'll get a written estimate back at no cost."
+    "answer": "No. Estimates are free. We come out, look at the job, and either give you a price on the spot or get one back to you within a few days — that gap is for pricing materials and working out whether things can be sourced locally."
   },
   {
-    "question": "Can you handle a job that needs several trades?",
-    "answer": "That is most of what we do. Running plumbing, electrical, carpentry, and finish work through one crew is why remodels stay on schedule instead of stalling between subcontractors."
+    "question": "How far do you travel?",
+    "answer": "All of Taos County as a matter of course — Taos, Ranchos de Taos, Arroyo Seco, Arroyo Hondo, El Prado, Questa, Red River, Elizabethtown, Eagle Nest and Angel Fire — and anywhere within about 50 miles of Taos. Past that we can still come out, but a travel fee gets added to the job."
   },
   {
-    "question": "Are you licensed and insured?",
-    "answer": "Yes. License details are available on request and are listed on every estimate."
+    "question": "Do you take emergency and after-hours calls?",
+    "answer": "Yes, at a premium rate. It is worth knowing why: taking your emergency usually means dropping a job already in progress, or working past hours. The premium covers that. Call and you will know what it comes to before anything starts."
   },
   {
-    "question": "How soon can you start?",
-    "answer": "It depends on the season and the size of the job. Small repairs usually get scheduled within a week or two; full remodels are booked further out. Reach out and you'll get a straight answer on timing."
+    "question": "Are you licensed?",
+    "answer": "Not in New Mexico yet. Dave held a general contractor's license in Nevada for six years, and licenses do not carry over between states, so it is being redone here — expected by the end of the year. This page gets updated the day that changes."
   },
   {
-    "question": "Do you take on small jobs?",
-    "answer": "Yes. Small jobs are worth batching — if you have a list of five things, one visit is cheaper than five separate calls."
+    "question": "How long until you can start?",
+    "answer": "It depends on what is already booked and how big the job is. Scheduling happens on that first call, so you will get a straight answer about timing rather than a maybe."
+  },
+  {
+    "question": "Do you take small jobs?",
+    "answer": "Yes. If you have a list of five small things, one visit is cheaper than five separate calls."
   }
 ]

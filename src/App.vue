@@ -13,7 +13,7 @@ import ContactModal from '@/components/contact/ContactModal.vue'
   <v-app>
     <a
       href="#main"
-      class="type-label sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-basalt focus:px-5 focus:py-3 focus:text-bone"
+      class="type-label sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-pitch focus:px-5 focus:py-3 focus:text-snow"
     >
       Skip to content
     </a>

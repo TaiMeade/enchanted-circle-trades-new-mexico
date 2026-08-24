@@ -7,12 +7,12 @@
     <title>Enchanted Circle Trades | Contracting &amp; Handyman Services in Taos, NM</title>
     <meta
       name="description"
-      content="Remodels, renovations, plumbing, electrical, carpentry, and general repairs for homes around the Enchanted Circle — Taos, Questa, Red River, Eagle Nest, and Angel Fire, New Mexico."
+      content="Remodels, renovations, plumbing, electrical, HVAC, carpentry, concrete, fencing, landscaping and general repairs across Taos County, New Mexico. Free estimates, and you hear back the same day."
     />
     <link rel="canonical" href="https://taimeade.github.io/enchanted-circle-trades-new-mexico/" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#1C1A17" />
+    <meta name="theme-color" content="#0B1512" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -23,16 +23,22 @@
     />
     <meta
       property="og:description"
-      content="One crew for remodels, plumbing, electrical, carpentry, and repairs around the Enchanted Circle in northern New Mexico."
+      content="Every trade, one call. Remodels, plumbing, electrical, HVAC, carpentry and more across Taos County, New Mexico."
     />
-    <meta property="og:url" content="https://taimeade.github.io/enchanted-circle-trades-new-mexico/" />
+    <meta
+      property="og:url"
+      content="https://taimeade.github.io/enchanted-circle-trades-new-mexico/"
+    />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!--
-      TODO before launch: add an og:image (1200×630) once real project photos
-      exist, and add "telephone" to the structured data below once the real
-      business number is confirmed. Publishing a placeholder number in
-      structured data risks it being indexed and surfaced in search results.
+      TODO: add an og:image (1200x630) once there are real job photos to crop
+      one from. Until then the link preview is text-only, which is better than
+      shipping a stock photo of somebody else's work.
+
+      NOTE: there is deliberately no "hasCredential" or license property in the
+      structured data below. The business is not licensed in New Mexico yet —
+      see the note at the top of src/config/site.js before adding one.
     -->
     <script type="application/ld+json">
       {
@@ -40,31 +46,52 @@
         "@type": "GeneralContractor",
         "name": "Enchanted Circle Trades New Mexico",
         "alternateName": "Enchanted Circle Trades",
-        "description": "Remodels, renovations, plumbing, electrical, carpentry, and general repair work for homes around the Enchanted Circle in northern New Mexico.",
+        "legalName": "Enchanted Circle Trades LLC",
+        "description": "Remodels, renovations, plumbing, electrical, HVAC, carpentry, concrete, fencing, landscaping and general repair work for homes across Taos County, New Mexico.",
         "url": "https://taimeade.github.io/enchanted-circle-trades-new-mexico/",
         "email": "dav.perez@proton.me",
+        "telephone": "+1-575-770-0264",
+        "foundingDate": "2025",
+        "founder": { "@type": "Person", "name": "Dave Perez" },
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Taos",
           "addressRegion": "NM",
           "addressCountry": "US"
         },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "17:00"
+          }
+        ],
         "areaServed": [
           { "@type": "City", "name": "Taos, NM" },
+          { "@type": "City", "name": "Ranchos de Taos, NM" },
+          { "@type": "City", "name": "Arroyo Seco, NM" },
+          { "@type": "City", "name": "Arroyo Hondo, NM" },
+          { "@type": "City", "name": "El Prado, NM" },
           { "@type": "City", "name": "Questa, NM" },
           { "@type": "City", "name": "Red River, NM" },
+          { "@type": "City", "name": "Elizabethtown, NM" },
           { "@type": "City", "name": "Eagle Nest, NM" },
           { "@type": "City", "name": "Angel Fire, NM" }
         ],
         "knowsAbout": [
-          "Kitchen and bath remodeling",
-          "Home renovations",
+          "Remodels",
+          "Renovations",
           "Plumbing",
           "Electrical",
+          "HVAC",
           "Carpentry",
-          "Drywall and painting",
-          "Tile and flooring",
-          "General handyman repairs"
+          "Drywall",
+          "Concrete",
+          "Fencing",
+          "Landscaping",
+          "Trash Removal",
+          "Handyman"
         ]
       }
     </script>
