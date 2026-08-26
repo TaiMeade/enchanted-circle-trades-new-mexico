@@ -3,7 +3,19 @@ import site from '@/config/site'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import SectionHeading from '@/components/layout/SectionHeading.vue'
 
-const { yearsExperience, priorLicense, nmLicensePending, licenseNumber } = site.credentials
+const { yearsExperience, priorWork } = site.credentials
+
+/**
+ * The scan card beside the copy. Every value is derived from src/config/site.js
+ * rather than typed here, so changing a business fact in one place changes this
+ * card too.
+ */
+const facts = [
+  { label: 'In the trades', value: `${yearsExperience}+ years` },
+  { label: 'Based in', value: `${site.address.city}, New Mexico` },
+  { label: 'Callbacks', value: 'Within a few hours' },
+  { label: 'Estimates', value: 'Free, and in writing' },
+]
 </script>
 
 <template>
@@ -14,7 +26,7 @@ const { yearsExperience, priorLicense, nmLicensePending, licenseNumber } = site.
 
         <div class="mt-8 space-y-5 text-lg leading-relaxed text-pretty text-stone">
           <p>
-            {{ yearsExperience }}+ years in the trades, {{ priorLicense }}. Enchanted Circle Trades
+            {{ yearsExperience }}+ years in the trades, {{ priorWork }}. Enchanted Circle Trades
             started here in northern New Mexico in {{ site.foundedYear }}.
           </p>
           <p>
@@ -25,34 +37,22 @@ const { yearsExperience, priorLicense, nmLicensePending, licenseNumber } = site.
         </div>
       </div>
 
-      <!--
-        ── Licensing ──
-        This business does not hold a New Mexico contractor's license yet, so
-        nothing on this site claims one. Saying where it stands is both accurate
-        and, for a new business, more convincing than a badge would be. When the
-        license is issued, set `nmLicensePending: false` and fill in
-        `licenseNumber` in src/config/site.js — this block updates itself.
-      -->
       <aside class="border border-spruce/15 bg-granite p-8 lg:sticky lg:top-28 lg:self-start">
         <div class="flex items-center gap-3">
           <AppIcon name="crew" :size="24" class="text-ember-deep" />
-          <h3 class="type-display text-lg text-spruce">Licensing, straight</h3>
+          <h3 class="type-display text-lg text-spruce">At a glance</h3>
         </div>
 
-        <p v-if="nmLicensePending" class="mt-5 leading-relaxed text-pretty text-stone">
-          Not licensed in New Mexico yet. Licenses do not carry over between states, so it is being
-          redone here and is expected by the end of the year. Until then this page says so rather
-          than implying otherwise.
-        </p>
-        <p v-else class="mt-5 leading-relaxed text-pretty text-stone">
-          Licensed in the State of New Mexico
-          <span v-if="licenseNumber">— license #{{ licenseNumber }}</span>
-          .
-        </p>
-
-        <p class="mt-5 leading-relaxed text-pretty text-stone">
-          Estimates are free either way, and you get the price before anything starts.
-        </p>
+        <dl class="mt-6 border-t border-spruce/12">
+          <div
+            v-for="fact in facts"
+            :key="fact.label"
+            class="flex items-baseline justify-between gap-6 border-b border-spruce/12 py-4"
+          >
+            <dt class="type-label text-stone">{{ fact.label }}</dt>
+            <dd class="text-right font-medium text-spruce">{{ fact.value }}</dd>
+          </div>
+        </dl>
       </aside>
     </div>
   </section>

@@ -19,7 +19,7 @@ import SectionHeading from '@/components/layout/SectionHeading.vue'
 <template>
   <section id="faq" class="scroll-mt-20 bg-granite py-20 lg:py-28">
     <div class="shell">
-      <SectionHeading eyebrow="Questions" title="The ones we get asked" />
+      <SectionHeading eyebrow="Questions" title="Frequently Asked" />
 
       <dl class="mt-14 grid gap-x-14 gap-y-10 md:grid-cols-2 lg:mt-16 lg:gap-x-20">
         <div v-for="faq in faqs" :key="faq.question" class="border-t border-spruce/15 pt-6">

@@ -127,11 +127,6 @@ const year = new Date().getFullYear()
     </div>
 
     <div class="border-t border-snow/10">
-      <!--
-        No license or insurance line here. See the note in src/config/site.js —
-        this business is not licensed in New Mexico yet, and the site says so
-        openly in the "Who you're hiring" section rather than staying quiet.
-      -->
       <div
         class="shell flex flex-col gap-2 py-6 text-sm text-snow/55 sm:flex-row sm:items-center sm:justify-between"
       >

@@ -101,7 +101,12 @@ watch(() => route.fullPath, closeContactModal)
             </p>
           </div>
 
-          <div class="px-7 py-8 sm:px-10 sm:py-9">
+          <!--
+            The body is `granite`, not `snow`, so the snow-surfaced fields read
+            as boxes you type into rather than dissolving into the panel behind
+            them. Same alternation the page sections use.
+          -->
+          <div class="bg-granite px-7 py-8 sm:px-10 sm:py-9">
             <ContactForm :service="presetService" />
           </div>
 

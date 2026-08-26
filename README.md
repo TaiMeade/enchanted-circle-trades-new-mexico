@@ -9,31 +9,16 @@ County, New Mexico. Owner-operated by Dave Perez.
 
 ## ⚠️ Read this before writing any copy
 
-**This business does not hold a New Mexico contractor's license yet.**
+Every claim on this site has to be one Dave can stand behind on the phone. The
+business is **Enchanted Circle Trades LLC**, registered with the state; it also has a
+federal **EIN**, which is deliberately not stored anywhere in this repo — it is a tax
+identifier, and publishing one invites fraudulent filings while doing nothing for a
+visitor deciding whether to call.
 
-New Mexico requires a license number in contractor advertising, and the license itself
-is issued by the Regulation and Licensing Department's Construction Industries
-Division. Nothing on this site may say _licensed_, _insured_, _certified_, or _bonded_
-until that comes through.
-
-Two things that are true but are **not** a contractor's license, and must not be
-presented as one:
-
-- the business is registered with the state as **Enchanted Circle Trades LLC**
-- it has a federal **EIN**
-
-The EIN is deliberately not stored anywhere in this repo. It is a tax identifier;
-publishing one invites fraudulent filings and does nothing for a visitor deciding
-whether to call.
-
-What the site says instead is in the "Who you're hiring" section: 15+ years in the
-trades, six of them as a licensed general contractor in Nevada, and New Mexico
-licensing in progress. That is accurate, and for a new business it is more convincing
-than a badge.
-
-**When the license is issued:** set `credentials.nmLicensePending` to `false` and fill
-in `credentials.licenseNumber` in `src/config/site.js`. The About section and the FAQ
-answer both update from those two values.
+What the site sells is in the "Who you're hiring" section: 15+ years in the trades,
+six of them running general contracting jobs in Nevada, one crew, and a callback
+within a few hours. No stock photos of somebody else's work, no invented reviews, and
+no numbers nobody has measured.
 
 ---
 
@@ -80,8 +65,8 @@ Hero            the pitch, the phone number, the ridgeline
 #trades         the twelve trades, as a grid
 #how            the four-step process
 #area           the ten towns and the 50-mile radius
-#about          who Dave is, and where licensing stands
-#faq            seven questions, answered flat
+#about          who Dave is, and the facts at a glance
+#faq            six questions, answered flat
 CTA band        call, or open the estimate form
 ```
 
@@ -100,7 +85,7 @@ Content is data, not markup. Almost nothing here requires touching a component.
 
 ### Business details — `src/config/site.js`
 
-Phone, email, hours, service area, response time, social links and credentials all
+Phone, email, hours, service area, response time, social links and track record all
 live in this one file, and every component reads from it. Change a value here and it
 updates everywhere.
 
@@ -312,19 +297,58 @@ src/
 ### Tailwind and Vuetify together
 
 Tailwind drives all layout and visual design; Vuetify is used only where its form
-validation and accessibility plumbing is worth having.
+validation and accessibility plumbing is worth having. They coexist through cascade
+layers rather than `!important` — but **the order is not the obvious one**, and
+getting it wrong fails silently.
 
-They coexist through cascade layers rather than `!important`. Vuetify 4 ships fully
-layered CSS and Tailwind v4 is layer-native. Because layer precedence is fixed by
-order of first declaration, `src/main.js` imports them in this order:
+`src/main.js` imports the stylesheets in this order:
 
 ```js
-import 'vuetify/styles' // registers the vuetify-* layers first → lower priority
-import './styles/main.css' // Tailwind's layers land after → higher priority
+import './styles/main.css' // declares the layer order, so it must come first
+import 'vuetify/styles' // fills in layers that statement already ordered
 ```
 
-**Swapping those two lines makes Vuetify override every Tailwind utility.** If styling
-starts behaving strangely, check that order first.
+Layer priority is fixed by order of first declaration, so this used to be reversed —
+Vuetify first, Tailwind second — on the reasoning that Tailwind's utilities should
+outrank Vuetify's components. They should. The problem is what else rides along in
+Tailwind's layers: **preflight lives in `base`**, and preflight sets `border: 0 solid`
+on `*` and `opacity: 1` on every form control.
+
+Outranking Vuetify meant preflight beat
+`.v-field__outline__start { border-width: var(--v-field-border-width) }` and
+`.v-select--selected … > input { opacity: 0 }`. The result was outlined text fields
+that rendered with **no outline at all**, and a select that showed its value **twice** —
+once from the real, meant-to-be-invisible input and once from Vuetify's selection
+element. Layers beat specificity, so nothing on Vuetify's side could have won.
+
+The order now runs:
+
+```
+properties, theme, base   Tailwind tokens and preflight — a reset should lose to
+                          real component styles
+vuetify-*                 Vuetify's component internals
+components, utilities     Tailwind's own classes, still on top, so a `bg-snow` in
+                          a template beats Vuetify
+```
+
+`main.css` opens with an explicit `@layer` statement saying exactly that. The
+minifier strips it when it can prove the emitted order already matches, which leaves
+the import order in `main.js` doing the real work — so **`scripts/postbuild.mjs`
+asserts the order in the built CSS and fails the build if `base` lands after
+`vuetify-components`.** Do not delete that check; it is the only thing standing
+between this and a form that looks broken with nothing in the console.
+
+### Focus rings on form controls
+
+Vuetify sets `outline: none` on its own inputs and textareas, and with the layer order
+above that now wins against the global `:focus-visible` rule in `@layer base`. There is
+also a positioning problem: for a select, Vuetify's real `<input>` is absolutely
+positioned and shorter than the field you can see, so a ring drawn on it floated above
+the control looking like a stray rectangle.
+
+`main.css` handles both in its unlayered block: it suppresses the ring on the inner
+input and draws it on `.v-field` instead, via `:has(:focus-visible)`. Keyboard users
+get a ring around the thing they perceive as the control.
 
 ---
 

@@ -4,14 +4,13 @@
 import '@fontsource-variable/archivo/wdth.css'
 import '@fontsource-variable/karla/wght.css'
 
-// ── Import order matters. ──
-// Vuetify registers its cascade layers (vuetify-core, vuetify-components, …)
-// when its stylesheet lands. Loading it first means Tailwind's layers, declared
-// by `@import "tailwindcss"` inside main.css, are registered afterwards and so
-// take precedence. Swapping these two lines makes Vuetify override every
-// Tailwind utility.
-import 'vuetify/styles'
+// ── Import order matters, but not for the reason it used to. ──
+// main.css now opens with an explicit `@layer` statement that fixes the
+// priority of every layer on the page, so it has to be the first stylesheet
+// the document sees. Vuetify's CSS lands after it and simply fills in the
+// layers that statement already ordered. Do not swap these two lines.
 import './styles/main.css'
+import 'vuetify/styles'
 
 import { createApp } from 'vue'
 

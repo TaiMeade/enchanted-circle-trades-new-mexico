@@ -3,16 +3,6 @@
  *
  * Nothing in `src/components` or `src/views` should ever hardcode a phone
  * number, an email address, an address, or business hours. Import from here.
- *
- * ── A NOTE ON CLAIMS ──
- * This business is not yet licensed in New Mexico. Nothing on this site may
- * say "licensed" or "insured" — New Mexico requires a license number in
- * contractor advertising, and claiming a license you do not hold is its own
- * problem. `credentials` below describes experience only, which is accurate
- * and, for a new business, more persuasive than a badge anyway.
- *
- * When the New Mexico license comes through, add the number to `credentials`
- * and update the statement. That is the only edit required.
  */
 
 /** Confirmed with the owner. Display format and the tel: link both derive from this. */
@@ -31,8 +21,8 @@ export const site = Object.freeze({
    * structured data's legalName, which is where a real legal name belongs.
    *
    * The EIN is deliberately NOT stored here or anywhere else in this repo. It
-   * is a tax identifier, not a credential — publishing one invites fraudulent
-   * filings, and it does nothing for a visitor deciding whether to call.
+   * is a tax identifier — publishing one invites fraudulent filings, and it
+   * does nothing for a visitor deciding whether to call.
    */
   legalName: 'Enchanted Circle Trades LLC',
   /** Shorter form for headers and repeated inline mentions. */
@@ -98,7 +88,7 @@ export const site = Object.freeze({
   /** Everything past the named towns. Stated plainly, travel fee included. */
   radius: Object.freeze({
     miles: 50,
-    note: 'Anywhere within about 50 miles of Taos is a normal call. Past that we can still come out, but a travel fee gets added to the job.',
+    note: 'Anywhere within about 50 miles of Taos is a normal call. Past that we can still come out, but a travel fee may get added to the job.',
   }),
 
   /** Leave a value empty and its icon is hidden automatically. */
@@ -109,23 +99,14 @@ export const site = Object.freeze({
   }),
 
   /**
-   * Experience, not credentials.
+   * Track record. Read by the "Who you're hiring" section.
    *
-   * `nmLicensePending` drives the honest note about where New Mexico licensing
-   * stands. Set it to false and add `licenseNumber` once the license is issued.
-   *
-   * Note: the business IS registered with the state as an LLC and has an EIN.
-   * Neither is a contractor's license. A New Mexico contractor's license is
-   * issued by the Regulation and Licensing Department's Construction
-   * Industries Division (a GB-98, GB-2 or similar classification), and that is
-   * the credential this flag tracks — it is the one that advertising rules and
-   * homeowners actually mean. Do not flip this because the LLC exists.
+   * `priorWork` finishes the sentence "15+ years in the trades, …", so keep it
+   * as a lowercase fragment.
    */
   credentials: Object.freeze({
     yearsExperience: 15,
-    priorLicense: 'six of them as a licensed general contractor in Nevada',
-    nmLicensePending: true,
-    licenseNumber: '',
+    priorWork: 'six of them running general contracting jobs in Nevada',
   }),
 
   /** The year the business started operating in northern New Mexico. */

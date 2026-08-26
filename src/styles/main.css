@@ -1,12 +1,36 @@
-@import 'tailwindcss';
-
 /*
- * Tailwind's layers are declared by the import above. Because `vuetify/styles`
- * is imported *before* this file in src/main.js, Vuetify's own cascade layers
- * (vuetify-core, vuetify-components, vuetify-utilities, …) are registered first
- * and therefore rank lower. Tailwind utilities win over Vuetify component
- * styles without a single !important. Do not reorder those two imports.
+ * ── Cascade layer order. This statement must stay the first thing in the
+ *    first stylesheet the document loads. ──
+ *
+ * Layer priority is fixed by order of first declaration, so it used to be a
+ * side effect of import order in src/main.js — and that got it wrong. With
+ * `vuetify/styles` imported first, Tailwind's layers were declared afterwards
+ * and therefore outranked all of Vuetify's. That sounds like what you want
+ * until you remember what lives in Tailwind's `base` layer: preflight.
+ *
+ * Preflight sets `border: 0 solid` on `*` and `opacity: 1` on every form
+ * control. Outranking Vuetify meant it silently won against
+ * `.v-field__outline__start { border-width: var(--v-field-border-width) }` and
+ * `.v-select--selected … > input { opacity: 0 }` — so outlined text fields
+ * rendered with no outline at all, and a select showed its value twice, once
+ * from the real (meant-to-be-invisible) input and once from Vuetify's
+ * selection element. Layers beat specificity, so no amount of selector
+ * weighting on Vuetify's side could have won.
+ *
+ * Declaring the order up front fixes it and stops it depending on import
+ * order at all:
+ *
+ *   properties, theme, base   Tailwind's tokens and preflight. A reset should
+ *                             lose to real component styles.
+ *   vuetify-*                 Vuetify's component internals.
+ *   components, utilities     Tailwind's own classes, still on top — a
+ *                             `bg-snow` in a template beats Vuetify, which is
+ *                             the property this project actually relies on.
  */
+@layer properties, theme, base, vuetify-core, vuetify-components, vuetify-utilities,
+  vuetify-overrides, vuetify-final, components, utilities;
+
+@import 'tailwindcss';
 
 /* Tell Tailwind where to scan for class names. */
 @source '../../index.html';
@@ -169,9 +193,15 @@
 
 /* ------------------------------------------------------------------ *
  * Vuetify overrides
- * Only what the contact form and the FAQ accordion need. Vuetify's layers
- * rank below Tailwind's, so these live in a plain (unlayered) block to
- * beat both.
+ *
+ * The contact form is the only place Vuetify renders, and most of its styling
+ * lives with it, in the scoped block at the bottom of ContactForm.vue. What is
+ * here is what a scoped block cannot reach: rules that must apply before that
+ * component's chunk loads, and the select's menu, which Vuetify teleports to
+ * <body> and therefore out of scoped range.
+ *
+ * Unlayered on purpose — a plain block beats both the vuetify-* layers and
+ * Tailwind's.
  * ------------------------------------------------------------------ */
 .v-field {
   border-radius: 0 !important;
@@ -180,6 +210,31 @@
 
 .v-field__outline {
   --v-field-border-opacity: 1;
+}
+
+/*
+ * Focus rings on form controls.
+ *
+ * Two problems the plain `:focus-visible` rule in @layer base cannot solve:
+ *
+ * 1. Vuetify sets `outline: none` on its own inputs and textareas, in
+ *    vuetify-components — which now outranks base, by design. Left alone, a
+ *    keyboard user gets no ring on any form field.
+ * 2. The ring belongs on the field, not the input. For a select, Vuetify's
+ *    real <input> is absolutely positioned and shorter than the box you can
+ *    see, so a ring drawn on it floated above the field looking like a stray
+ *    rectangle.
+ *
+ * So: suppress the inner ring and put it on `.v-field`, which is the thing a
+ * person actually perceives as the control. Unlayered, so it wins outright.
+ */
+.v-field :focus-visible {
+  outline: none;
+}
+
+.v-field:has(:focus-visible) {
+  outline: 2px solid var(--color-ember-deep);
+  outline-offset: 3px;
 }
 
 .v-label,
@@ -206,4 +261,35 @@
 .v-application__wrap {
   background: transparent !important;
   min-height: 0 !important;
+}
+
+/* ------------------------------------------------------------------ *
+ * The service picker's menu
+ *
+ * Teleported to <body> by Vuetify's overlay, so ContactForm.vue's scoped
+ * styles cannot reach it. The class comes from `:menu-props` on that
+ * v-select — a page-wide `.v-list` override would be a bigger blast radius
+ * than one dropdown is worth.
+ * ------------------------------------------------------------------ */
+.contact-form-menu .v-list {
+  padding: 0;
+  background-color: var(--color-snow);
+  border: 1px solid color-mix(in srgb, var(--color-spruce) 28%, transparent);
+  font-family: var(--font-body);
+}
+
+.contact-form-menu .v-list-item {
+  min-height: 2.875rem;
+  padding-inline: 1rem;
+}
+
+.contact-form-menu .v-list-item-title {
+  font-size: 0.9375rem;
+  letter-spacing: 0;
+  color: var(--color-spruce);
+}
+
+.contact-form-menu .v-list-item--active .v-list-item-title {
+  font-weight: 600;
+  color: var(--color-ember-deep);
 }

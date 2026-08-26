@@ -19,7 +19,7 @@ const steps = [
   {
     icon: 'schedule',
     title: 'We find a time',
-    body: 'Scheduling happens right there on that first call, around what works for both of us.',
+    body: 'Scheduling happens on the first call, around what works for both of us.',
   },
   {
     icon: 'inspect',
@@ -29,7 +29,7 @@ const steps = [
   {
     icon: 'quote',
     title: 'You get a price',
-    body: 'On the spot where we can. If materials need pricing or sourcing first, within a few days.',
+    body: 'On the spot when we can. If materials need pricing or sourcing first, within a few days.',
   },
 ]
 </script>
