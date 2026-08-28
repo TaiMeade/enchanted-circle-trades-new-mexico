@@ -31,7 +31,7 @@ const year = new Date().getFullYear()
       <!-- Brand -->
       <div>
         <div class="flex items-center gap-3">
-          <LogoMark :size="30" />
+          <LogoMark :size="44" />
           <span class="type-display text-lg leading-none">
             Enchanted Circle
             <span class="text-ember-light">Trades</span>

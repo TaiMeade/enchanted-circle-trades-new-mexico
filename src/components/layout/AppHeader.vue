@@ -88,7 +88,7 @@ function closeMenu() {
         class="flex items-center gap-3 py-2"
         :aria-label="`${site.name} — home`"
       >
-        <LogoMark :size="30" />
+        <LogoMark :size="44" />
         <span class="type-display text-base leading-none sm:text-lg">
           <span class="sm:hidden">{{ site.abbr }}</span>
           <span class="hidden sm:inline">Enchanted Circle</span>
