@@ -27,9 +27,6 @@ export const site = Object.freeze({
   legalName: 'Enchanted Circle Trades LLC',
   /** Shorter form for headers and repeated inline mentions. */
   shortName: 'Enchanted Circle Trades',
-  /** Initials for the logo mark and tight spaces. */
-  abbr: 'ECT',
-
   tagline: 'Every trade. One call.',
   description:
     'Remodels, renovations, plumbing, electrical, HVAC, carpentry, concrete, fencing, landscaping and general repairs for homes across Taos County, New Mexico.',

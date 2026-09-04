@@ -27,19 +27,27 @@ const year = new Date().getFullYear()
 
 <template>
   <footer class="on-dark bg-spruce text-snow">
-    <div class="shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-10 lg:py-20">
+    <!--
+      Two columns on a phone rather than four blocks stacked. The two list
+      columns — trades and towns — are short lines of the same shape, so they
+      pair off naturally and halve the footer's height; the brand block and the
+      contact block need the full width and say so.
+    -->
+    <div
+      class="shell grid grid-cols-2 gap-x-6 gap-y-9 py-12 md:grid-cols-2 md:gap-10 md:py-16 lg:grid-cols-4 lg:py-20"
+    >
       <!-- Brand -->
-      <div>
+      <div class="col-span-2 md:col-span-1">
         <div class="flex items-center gap-3">
-          <LogoMark :size="44" />
+          <LogoMark tone="white" :size="44" />
           <span class="type-display text-lg leading-none">
             Enchanted Circle
             <span class="text-ember-light">Trades</span>
           </span>
         </div>
-        <p class="mt-6 leading-relaxed text-pretty text-snow/65">{{ site.description }}</p>
+        <p class="mt-4 leading-relaxed text-pretty text-snow/65 sm:mt-6">{{ site.description }}</p>
 
-        <ul v-if="socialLinks.length" class="mt-7 flex gap-3">
+        <ul v-if="socialLinks.length" class="mt-5 flex gap-3 sm:mt-7">
           <li v-for="link in socialLinks" :key="link.key">
             <a
               :href="link.href"
@@ -56,7 +64,9 @@ const year = new Date().getFullYear()
       <!-- Trades -->
       <div>
         <h2 class="type-label text-ember-light">What we do</h2>
-        <ul class="mt-5 grid grid-cols-2 gap-x-6 gap-y-2.5 text-snow/65">
+        <ul
+          class="mt-4 grid gap-y-2 text-[0.9375rem] text-snow/65 sm:mt-5 md:grid-cols-2 md:gap-x-6 md:gap-y-2.5 md:text-base"
+        >
           <li v-for="service in services" :key="service.slug">{{ service.name }}</li>
         </ul>
       </div>
@@ -64,18 +74,20 @@ const year = new Date().getFullYear()
       <!-- Towns -->
       <div>
         <h2 class="type-label text-ember-light">Where we work</h2>
-        <ul class="mt-5 grid grid-cols-2 gap-x-6 gap-y-2.5 text-snow/65">
+        <ul
+          class="mt-4 grid gap-y-2 text-[0.9375rem] text-snow/65 sm:mt-5 md:grid-cols-2 md:gap-x-6 md:gap-y-2.5 md:text-base"
+        >
           <li v-for="town in site.serviceArea" :key="town">{{ town }}</li>
         </ul>
-        <p class="mt-4 text-sm leading-relaxed text-snow/55">
+        <p class="mt-3 text-sm leading-relaxed text-snow/55 sm:mt-4">
           And about {{ site.radius.miles }} miles beyond, with a travel fee.
         </p>
       </div>
 
       <!-- Contact -->
-      <div>
+      <div class="col-span-2 md:col-span-1">
         <h2 class="type-label text-ember-light">Get in touch</h2>
-        <ul class="mt-5 space-y-2 text-snow/65">
+        <ul class="mt-4 space-y-1.5 text-snow/65 sm:mt-5 sm:space-y-2">
           <li>
             <a
               :href="site.phoneHref"
@@ -107,9 +119,7 @@ const year = new Date().getFullYear()
           <li class="flex items-start gap-3">
             <AppIcon name="clock" :size="20" class="mt-0.5 shrink-0 text-ember-light" />
             <span>
-              Mon–Sat {{ site.hours.weekdays }}
-              <br />
-              Sunday {{ site.hours.sunday.toLowerCase() }}
+              Mon–Sat {{ site.hours.weekdays }} · Sunday {{ site.hours.sunday.toLowerCase() }}
               <br />
               <span class="text-snow/55">Holiday hours vary</span>
             </span>
@@ -118,7 +128,7 @@ const year = new Date().getFullYear()
 
         <button
           type="button"
-          class="mt-5 flex min-h-11 items-center font-medium text-ember-light underline underline-offset-4 transition-colors hover:text-snow"
+          class="mt-4 flex min-h-11 items-center font-medium text-ember-light underline underline-offset-4 transition-colors hover:text-snow sm:mt-5"
           @click="openContactModal()"
         >
           Get a free estimate
@@ -128,7 +138,7 @@ const year = new Date().getFullYear()
 
     <div class="border-t border-snow/10">
       <div
-        class="shell flex flex-col gap-2 py-6 text-sm text-snow/55 sm:flex-row sm:items-center sm:justify-between"
+        class="shell flex flex-col gap-1 py-5 text-sm text-snow/55 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:py-6"
       >
         <p>© {{ year }} {{ site.legalName }}.</p>
         <p>Owner-operated by {{ site.owner }}.</p>

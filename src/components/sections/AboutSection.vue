@@ -19,12 +19,14 @@ const facts = [
 </script>
 
 <template>
-  <section id="about" class="scroll-mt-20 bg-snow py-20 lg:py-28">
-    <div class="shell grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-20">
+  <section id="about" class="scroll-mt-20 bg-snow py-12 sm:py-20 lg:py-28">
+    <div class="shell grid gap-8 sm:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-20">
       <div>
         <SectionHeading eyebrow="Who you're hiring" title="One crew, run by Dave Perez" />
 
-        <div class="mt-8 space-y-5 text-lg leading-relaxed text-pretty text-stone">
+        <div
+          class="mt-5 space-y-4 leading-relaxed text-pretty text-stone sm:mt-8 sm:space-y-5 sm:text-lg"
+        >
           <p>
             {{ yearsExperience }}+ years in the trades, {{ priorWork }}. Enchanted Circle Trades
             started here in northern New Mexico in {{ site.foundedYear }}.
@@ -37,17 +39,19 @@ const facts = [
         </div>
       </div>
 
-      <aside class="border border-spruce/15 bg-granite p-8 lg:sticky lg:top-28 lg:self-start">
+      <aside
+        class="border border-spruce/15 bg-granite p-5 sm:p-8 lg:sticky lg:top-28 lg:self-start"
+      >
         <div class="flex items-center gap-3">
           <AppIcon name="crew" :size="24" class="text-ember-deep" />
           <h3 class="type-display text-lg text-spruce">At a glance</h3>
         </div>
 
-        <dl class="mt-6 border-t border-spruce/12">
+        <dl class="mt-4 border-t border-spruce/12 sm:mt-6">
           <div
             v-for="fact in facts"
             :key="fact.label"
-            class="flex items-baseline justify-between gap-6 border-b border-spruce/12 py-4"
+            class="flex items-baseline justify-between gap-6 border-b border-spruce/12 py-2.5 sm:py-4"
           >
             <dt class="type-label text-stone">{{ fact.label }}</dt>
             <dd class="text-right font-medium text-spruce">{{ fact.value }}</dd>

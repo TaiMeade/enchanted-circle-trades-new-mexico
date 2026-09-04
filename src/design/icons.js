@@ -17,6 +17,7 @@ import {
   mdiCalendarCheckOutline,
   mdiCheck,
   mdiCheckCircleOutline,
+  mdiChevronDown,
   mdiClockOutline,
   mdiClose,
   mdiCountertop,
@@ -80,6 +81,7 @@ export const icons = Object.freeze({
   checkCircle: mdiCheckCircleOutline,
   alert: mdiAlertCircleOutline,
   crew: mdiAccountHardHatOutline,
+  chevronDown: mdiChevronDown,
 
   // Social — rendered only when the matching link in site.js is non-empty
   facebook: mdiFacebook,

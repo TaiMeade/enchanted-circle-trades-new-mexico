@@ -5,6 +5,10 @@ import RidgeRule from '@/components/ui/RidgeRule.vue'
  * The standard section opener: eyebrow, ridge rule, title, optional lead.
  *
  * `tone` only switches text colors — the section itself owns its background.
+ *
+ * The spacing and the lead's size step down on small screens. Every section on
+ * the site opens with one of these, so a few tightened rems here come off the
+ * page seven times over.
  */
 defineProps({
   eyebrow: { type: String, default: '' },
@@ -27,7 +31,7 @@ defineProps({
     </p>
 
     <RidgeRule
-      class="mt-4 mb-6"
+      class="mt-3 mb-4 sm:mt-4 sm:mb-6"
       :class="tone === 'light' ? 'text-ember-light/70' : 'text-ember/70'"
       width="4rem"
     />
@@ -42,7 +46,7 @@ defineProps({
 
     <p
       v-if="lead"
-      class="mt-6 max-w-2xl text-lg leading-relaxed text-pretty"
+      class="mt-4 max-w-2xl leading-relaxed text-pretty sm:mt-6 sm:text-lg"
       :class="tone === 'light' ? 'text-snow/70' : 'text-stone'"
     >
       {{ lead }}

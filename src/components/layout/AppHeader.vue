@@ -88,13 +88,30 @@ function closeMenu() {
         class="flex items-center gap-3 py-2"
         :aria-label="`${site.name} — home`"
       >
-        <LogoMark :size="44" />
-        <span class="type-display text-base leading-none sm:text-lg">
-          <span class="sm:hidden">{{ site.abbr }}</span>
-          <span class="hidden sm:inline">Enchanted Circle</span>
-          <span class="hidden sm:inline" :class="overHero ? 'text-ember-light' : 'text-ember-deep'">
-            Trades
-          </span>
+        <!-- White line-art while the header floats on the hero; ink once it
+             lands on the light bar. -->
+        <LogoMark :size="44" :tone="overHero ? 'white' : 'ink'" />
+        <!--
+          The full name at every width. It used to collapse to "ECT" below `sm`
+          — three letters that mean nothing to someone who has just arrived
+          from a search result and is still checking they are in the right
+          place.
+
+          It sets on one line from about 375px up and folds to two below that,
+          which costs nothing: the header's height is set by the 44px mark, not
+          by the type, and there is 24px of clearance to the menu button even
+          at 320. `whitespace-nowrap` on the first half is what makes the fold
+          land between "Circle" and "Trades" rather than mid-name.
+
+          The `{{ ' ' }}` is a real space, not a stray one. Vue's whitespace
+          condensing deletes a text node that is only whitespace and a newline,
+          so writing the two spans on separate lines would render the words
+          jammed together.
+        -->
+        <span class="type-display text-base leading-[1.05] sm:text-lg sm:leading-none">
+          <span class="whitespace-nowrap">Enchanted Circle</span>
+          {{ ' ' }}
+          <span :class="overHero ? 'text-ember-light' : 'text-ember-deep'">Trades</span>
         </span>
       </RouterLink>
 

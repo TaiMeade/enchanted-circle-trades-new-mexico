@@ -19,7 +19,8 @@ defineProps({
    * Square size in px. Sets the `width`/`height` attributes, which fix the
    * aspect ratio for layout and act as the rendered width unless a caller
    * passes a width class — `h-auto` below keeps it square either way, and
-   * preflight's `max-width: 100%` stops it overflowing a narrow column.
+   * preflight's `max-width: 100%` stops it overflowing a narrow column (pass
+   * `max-w-none` alongside a width class when the mark is meant to bleed).
    *
    * Do not go far below 40: the ring text and the tool line-art turn to mush,
    * and at that point the badge is only a texture.
@@ -27,14 +28,18 @@ defineProps({
   size: { type: Number, default: 44 },
 
   /**
-   * How the artwork meets the surface behind it. See the note on `.knockout`
-   * in the style block — the short version is that `tile` is for light grounds
-   * and `knockout` is for dark ones.
+   * Which way the artwork reads.
+   *
+   *   ink    black line-art with the ember dots intact — for light grounds.
+   *   white  the same drawing in solid white — for dark grounds.
+   *
+   * Both are cut out of the source image's white ground, so the mark sits on
+   * whatever is behind it rather than on a square. See the style block.
    */
   tone: {
     type: String,
-    default: 'tile',
-    validator: (v) => ['tile', 'knockout'].includes(v),
+    default: 'ink',
+    validator: (v) => ['ink', 'white'].includes(v),
   },
 })
 
@@ -46,7 +51,7 @@ const src = `${import.meta.env.BASE_URL}logo.jpg`
     :src="src"
     :width="size"
     :height="size"
-    :class="tone === 'knockout' ? 'knockout' : 'bg-snow'"
+    :class="tone === 'white' ? 'logo-white' : 'logo-ink'"
     alt=""
     aria-hidden="true"
     class="h-auto shrink-0 object-contain"
@@ -55,36 +60,31 @@ const src = `${import.meta.env.BASE_URL}logo.jpg`
 
 <style scoped>
 /*
- * ── Putting black-on-white line-art on a dark ground ──
+ * ── Cutting line-art out of a JPEG ──
  *
- * The source is a JPEG, so there is no transparency: the artwork's own white
- * ground renders as a square. At 44px in the header that reads as a stamp and
- * is fine. At 260px on the hero's near-black gradient it would be a wall.
+ * The source has no alpha channel: its own white ground renders as a square.
+ * That reads as a stamp at 44px in the header and as a wall at 26rem behind
+ * the hero, and on the green footer it is just wrong.
  *
- * So invert it — the lines go white, the ground goes black — and hue-rotate to
- * bring the orange dots back from the cyan that inverting turns them into.
- * `screen` then drops the black ground out completely: screened against black
- * a backdrop comes back untouched, and against white it comes back white. What
- * survives is white line-art with warm dots, sitting directly on the gradient.
+ * So both tones run through an SVG filter (defined once, in App.vue) that
+ * turns darkness into opacity: alpha becomes 1 − luminance, so the white
+ * ground falls away and the drawing stays. `ink` keeps the original colors —
+ * black strokes, ember dots. `white` throws the same coverage in solid white.
  *
- * Two things this depends on, both of which the hero satisfies deliberately:
+ * A filter rather than the `mix-blend-mode: screen` this used to do, because
+ * blending only reaches back as far as the nearest stacking context. That made
+ * the mark unusable inside the fixed, backdrop-blurred header, and made the
+ * hero's markup order load-bearing in a way no one would guess from reading
+ * it. A filter produces real transparency and composites like any other image.
  *
- *   1. No ancestor between this image and the element painting the gradient may
- *      create a stacking context, or the blend isolates and there is nothing to
- *      blend with — the result would be a black square instead of a white one.
- *      HeroSection.vue carries a note about the `z-10` it had to drop.
- *   2. The hue-rotate is CSS's matrix approximation, not a true HSL rotation,
- *      so the dots land near `ember-light` rather than exactly on it. On a
- *      photograph that would matter; on six 8px dots it does not.
- *
- * If a browser ignores the blend mode the fallback is inverted art on a near
- * black square, which against `pitch` is very close to invisible anyway.
- *
- * None of this is needed the moment there is a transparent PNG or SVG export of
- * the same artwork: drop the file in, and this whole block goes away.
+ * If a browser drops the filter the fallback is the raw square — visible, but
+ * not broken.
  */
-.knockout {
-  filter: invert(1) hue-rotate(180deg);
-  mix-blend-mode: screen;
+.logo-ink {
+  filter: url('#logo-cut-ink');
+}
+
+.logo-white {
+  filter: url('#logo-cut-white');
 }
 </style>
