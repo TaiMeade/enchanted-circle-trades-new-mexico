@@ -14,34 +14,8 @@ import RidgeMountains from '@/components/ui/RidgeMountains.vue'
     puts the ridge in silhouette without needing a photograph.
   -->
   <section
-    class="on-dark relative -mt-18 flex min-h-[30rem] flex-col justify-end overflow-hidden bg-linear-to-b from-pitch to-spruce text-snow sm:min-h-[36rem] lg:-mt-20 lg:min-h-[44rem]"
+    class="on-dark relative isolate -mt-18 flex min-h-[30rem] flex-col justify-end overflow-hidden bg-linear-to-b from-pitch to-spruce text-snow sm:min-h-[36rem] lg:-mt-20 lg:min-h-[44rem]"
   >
-    <!--
-      ── The badge as sky, on small screens ──
-
-      Below `lg` the badge cannot sit beside the headline — there is no beside —
-      and stacking it above the phone number would push the two things this
-      hero exists for under the fold. So it goes behind instead: centred on the
-      column, near enough full width, at an opacity where it reads as weather
-      on the gradient rather than as a logo competing with the type.
-
-      It rides high rather than sitting centred on the section, because the
-      section's own centre is where the two buttons are. Overlapping body copy
-      at 11% is texture; overlapping the label on the estimate button is a
-      CTA nobody can read. The phone button below it is a solid fill and hides
-      whatever it covers outright.
-
-      It costs no vertical space, which is the whole point. The width caps at
-      92vw so the ring never touches the screen edge on a narrow phone, and
-      `max-w-none` is required either way — preflight would otherwise cap the
-      image at the width of a column it is not in.
-    -->
-    <LogoMark
-      tone="white"
-      :size="384"
-      class="pointer-events-none absolute top-5 left-1/2 w-[min(24rem,92vw)] max-w-none -translate-x-1/2 opacity-[0.11] sm:top-2 sm:w-[26rem] lg:hidden"
-    />
-
     <!-- The horizon, at the foot of the section and behind the copy. -->
     <RidgeMountains class="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-56 lg:h-72" />
 
@@ -49,26 +23,70 @@ import RidgeMountains from '@/components/ui/RidgeMountains.vue'
       class="shell relative pt-28 pb-40 sm:pt-32 sm:pb-60 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-12 lg:pt-40 lg:pb-72"
     >
       <div>
-        <p class="rise type-label text-ember-light" style="--delay: 0ms">
-          {{ site.address.city }} County, New Mexico
-        </p>
+        <!--
+          The eyebrow, headline and lead, as one positioned block so the badge
+          below can hang off its foot. See the note on the badge.
+        -->
+        <div class="relative">
+          <!--
+          ── The badge as sky, on small screens ──
 
-        <h1
-          class="rise text-display sm:text-display-lg type-display mt-4 max-w-4xl text-balance sm:mt-6 lg:text-display-xl xl:text-[7.5rem] xl:leading-[0.84]"
-          style="--delay: 80ms"
-        >
-          Every trade.
-          <br />
-          One call.
-        </h1>
+          Below `lg` the badge cannot sit beside the headline — there is no
+          beside — and stacking it above the phone number would push the two
+          things this hero exists for under the fold. So it goes behind
+          instead: centred on the column, near enough full width, at an opacity
+          where it reads as weather on the gradient rather than as a logo
+          competing with the type. It costs no vertical space, which is the
+          whole point.
 
-        <p
-          class="rise mt-5 max-w-xl leading-relaxed text-pretty text-snow/75 sm:mt-8 sm:text-lg"
-          style="--delay: 200ms"
-        >
-          Remodels, plumbing, electrical, carpentry — and the long list of smaller things that need
-          doing. Run through one crew instead of five.
-        </p>
+          It hangs off the foot of the copy rather than sitting at a fixed
+          distance from the top of the section, and that is the whole trick.
+          The headline and lead wrap to different line counts at every width,
+          so a fixed `top` that looks right on a 390px phone drops the ring
+          straight through the "Get a free estimate" label at 600px — measured,
+          not guessed. The gap between the foot of the lead and that button is
+          constant, so anchoring here keeps roughly 25px of clearance at every
+          width in the range.
+
+          `-z-10` puts it under the type without depending on the `rise`
+          animation to do it: `rise` animates a transform, which would stack
+          these siblings above it as a side effect, but that stops being true
+          under `prefers-reduced-motion` and the mark would land on top of the
+          buttons. The `isolate` on the section is what makes the negative
+          index safe — without a stacking context there, it would slide under
+          the section's own gradient and vanish.
+
+          `max-w-none` is required because preflight caps images at 100% of a
+          column this one is not in; the width caps at 92vw so the ring never
+          touches the edge of a narrow screen.
+        -->
+          <LogoMark
+            tone="white"
+            :size="384"
+            class="pointer-events-none absolute -bottom-30 left-1/2 -z-10 w-[min(24rem,92vw)] max-w-none -translate-x-1/2 opacity-[0.11] sm:-bottom-28 sm:w-[26rem] lg:hidden"
+          />
+
+          <p class="rise type-label text-ember-light" style="--delay: 0ms">
+            {{ site.address.city }} County, New Mexico
+          </p>
+
+          <h1
+            class="rise text-display sm:text-display-lg type-display mt-4 max-w-4xl text-balance sm:mt-6 lg:text-display-xl xl:text-[7.5rem] xl:leading-[0.84]"
+            style="--delay: 80ms"
+          >
+            Every trade.
+            <br />
+            One call.
+          </h1>
+
+          <p
+            class="rise mt-5 max-w-xl leading-relaxed text-pretty text-snow/75 sm:mt-8 sm:text-lg"
+            style="--delay: 200ms"
+          >
+            Remodels, plumbing, electrical, carpentry — and the long list of smaller things that
+            need doing. Run through one crew instead of five.
+          </p>
+        </div>
 
         <div
           class="rise mt-7 flex flex-col gap-2.5 sm:mt-10 sm:flex-row sm:items-center sm:gap-3"
