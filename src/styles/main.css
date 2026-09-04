@@ -87,17 +87,51 @@
  * Base
  * ------------------------------------------------------------------ */
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    /* Fixed header height, so anchor nav doesn't land a section under it. */
-    scroll-padding-top: 4.5rem;
-    -webkit-text-size-adjust: 100%;
+  /*
+   * ── The fixed header's height, in one place ──
+   *
+   * Five things have to agree on this number: the header bar itself, the top
+   * padding on <main>, the hero's negative top margin (it slides up under the
+   * transparent header), the mobile menu's `top`, and the scroll offset that
+   * keeps an anchored section from landing beneath the bar. That was five
+   * hand-copied `18`/`20` utilities across four files, which was survivable
+   * while the header was one height at two breakpoints. The branding now steps
+   * through four, so the number lives here and everything else reads it.
+   *
+   * The ladder is deliberately not monotonic. The mark is biggest in the
+   * `sm`–`lg` band, where the bar carries nothing but the logo and the menu
+   * button and the width is all ours. At `lg` the nav, phone and CTA arrive on
+   * the same row, so it steps back down and climbs again only as the viewport
+   * earns the room. AppHeader.vue has the measurements.
+   */
+  :root {
+    --header-h: 6rem;
+  }
+
+  @media (width >= 40rem) {
+    :root {
+      --header-h: 8rem;
+    }
   }
 
   @media (width >= 64rem) {
-    html {
-      scroll-padding-top: 5rem;
+    :root {
+      --header-h: 5rem;
     }
+  }
+
+  @media (width >= 80rem) {
+    :root {
+      --header-h: 6.5rem;
+    }
+  }
+
+
+  html {
+    scroll-behavior: smooth;
+    /* Fixed header height, so anchor nav doesn't land a section under it. */
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
   }
 
   body {

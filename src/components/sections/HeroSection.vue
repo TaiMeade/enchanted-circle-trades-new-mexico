@@ -14,7 +14,7 @@ import RidgeMountains from '@/components/ui/RidgeMountains.vue'
     puts the ridge in silhouette without needing a photograph.
   -->
   <section
-    class="on-dark relative isolate -mt-18 flex min-h-[30rem] flex-col justify-end overflow-hidden bg-linear-to-b from-pitch to-spruce text-snow sm:min-h-[36rem] lg:-mt-20 lg:min-h-[44rem]"
+    class="on-dark relative isolate mt-[calc(var(--header-h)*-1)] flex min-h-[30rem] flex-col justify-end overflow-hidden bg-linear-to-b from-pitch to-spruce text-snow sm:min-h-[36rem] lg:min-h-[44rem]"
   >
     <!-- The horizon, at the foot of the section and behind the copy. -->
     <RidgeMountains class="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-56 lg:h-72" />

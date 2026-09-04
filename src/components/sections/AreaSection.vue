@@ -7,7 +7,7 @@ import SectionHeading from '@/components/layout/SectionHeading.vue'
 </script>
 
 <template>
-  <section id="area" class="on-dark scroll-mt-20 bg-spruce py-12 text-snow sm:py-20 lg:py-28">
+  <section id="area" class="on-dark scroll-mt-(--header-h) bg-spruce py-12 text-snow sm:py-20 lg:py-28">
     <div class="shell grid gap-8 sm:gap-14 lg:grid-cols-2 lg:gap-20">
       <div>
         <SectionHeading

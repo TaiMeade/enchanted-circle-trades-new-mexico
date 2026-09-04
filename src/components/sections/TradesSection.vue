@@ -7,7 +7,7 @@ const { services } = useServices()
 </script>
 
 <template>
-  <section id="trades" class="scroll-mt-20 bg-granite py-12 sm:py-20 lg:py-28">
+  <section id="trades" class="scroll-mt-(--header-h) bg-granite py-12 sm:py-20 lg:py-28">
     <div class="shell">
       <SectionHeading
         eyebrow="What we do"

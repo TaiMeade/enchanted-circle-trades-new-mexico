@@ -95,7 +95,7 @@ import ContactModal from '@/components/contact/ContactModal.vue'
     <AppHeader />
 
     <!-- Offset for the fixed header. -->
-    <main id="main" class="pt-18 lg:pt-20">
+    <main id="main" class="pt-(--header-h)">
       <RouterView />
     </main>
 

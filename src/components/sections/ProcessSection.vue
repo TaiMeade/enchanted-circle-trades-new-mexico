@@ -35,7 +35,7 @@ const steps = [
 </script>
 
 <template>
-  <section id="how" class="scroll-mt-20 bg-snow py-12 sm:py-20 lg:py-28">
+  <section id="how" class="scroll-mt-(--header-h) bg-snow py-12 sm:py-20 lg:py-28">
     <div class="shell">
       <SectionHeading
         eyebrow="How it works"

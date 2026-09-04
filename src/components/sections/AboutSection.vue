@@ -19,7 +19,7 @@ const facts = [
 </script>
 
 <template>
-  <section id="about" class="scroll-mt-20 bg-snow py-12 sm:py-20 lg:py-28">
+  <section id="about" class="scroll-mt-(--header-h) bg-snow py-12 sm:py-20 lg:py-28">
     <div class="shell grid gap-8 sm:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-20">
       <div>
         <SectionHeading eyebrow="Who you're hiring" title="One crew, run by Dave Perez" />

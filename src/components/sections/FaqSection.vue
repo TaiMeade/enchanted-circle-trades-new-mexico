@@ -49,7 +49,7 @@ function onSummaryClick(event) {
 </script>
 
 <template>
-  <section id="faq" class="scroll-mt-20 bg-granite py-12 sm:py-20 lg:py-28">
+  <section id="faq" class="scroll-mt-(--header-h) bg-granite py-12 sm:py-20 lg:py-28">
     <div class="shell">
       <SectionHeading eyebrow="Questions" title="Frequently Asked" />
 
