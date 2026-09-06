@@ -12,6 +12,12 @@
     "icon": "home"
   },
   {
+    "slug": "handyman",
+    "name": "Handyman",
+    "summary": "The list of small jobs that never quite justifies its own call.",
+    "icon": "wrench"
+  },
+  {
     "slug": "plumbing",
     "name": "Plumbing",
     "summary": "Repairs, replacements, fixtures, and rough-in for remodels.",
@@ -60,15 +66,9 @@
     "icon": "landscaping"
   },
   {
-    "slug": "trash-removal",
-    "name": "Trash Removal",
-    "summary": "Hauling off what is left — after a job or after a clear-out.",
-    "icon": "trash"
-  },
-  {
-    "slug": "handyman",
-    "name": "Handyman",
-    "summary": "The list of small jobs that never quite justifies its own call.",
-    "icon": "wrench"
+    "slug": "roofing",
+    "name": "Roofing",
+    "summary": "Repairs, re-roofs, and chasing down a leak before it spreads.",
+    "icon": "roofing"
   }
 ]

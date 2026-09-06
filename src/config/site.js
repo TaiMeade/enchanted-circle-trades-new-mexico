@@ -29,7 +29,7 @@ export const site = Object.freeze({
   shortName: 'Enchanted Circle Trades',
   tagline: 'Every trade. One call.',
   description:
-    'Remodels, renovations, plumbing, electrical, HVAC, carpentry, concrete, fencing, landscaping and general repairs for homes across Taos County, New Mexico.',
+    'Remodels, renovations, plumbing, electrical, HVAC, carpentry, concrete, fencing, landscaping, roofing and general repairs for homes across Taos County, New Mexico.',
 
   /** Owner. Named on the site because a one-crew business is a person. */
   owner: 'Dave Perez',

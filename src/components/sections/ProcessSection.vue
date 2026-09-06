@@ -1,6 +1,5 @@
 <script setup>
 import site from '@/config/site'
-import AppIcon from '@/components/ui/AppIcon.vue'
 import SectionHeading from '@/components/layout/SectionHeading.vue'
 
 /**
@@ -9,25 +8,26 @@ import SectionHeading from '@/components/layout/SectionHeading.vue'
  * Numbers earn their place here because this genuinely is a sequence — it is
  * how the business actually runs a job, described by the owner, step by step.
  * Nothing else on the page is ordered, so nothing else is numbered.
+ *
+ * There are no icons on these steps, deliberately. A numeral and a glyph
+ * sitting side by side both say "item N of a process", and the numeral says it
+ * better; the glyphs were four generic outlines doing nothing the words above
+ * them weren't already doing.
  */
 const steps = [
   {
-    icon: 'call',
     title: 'You call',
     body: `We'll ask where you are and what seems to be going on. You'll hear back ${site.responseTime}.`,
   },
   {
-    icon: 'schedule',
     title: 'We find a time',
     body: 'Scheduling happens on the first call, around what works for both of us.',
   },
   {
-    icon: 'inspect',
     title: 'We come and look',
     body: 'An in-person look at the job, at no charge, so the price is based on what is actually there.',
   },
   {
-    icon: 'quote',
     title: 'You get a price',
     body: 'On the spot when we can. If materials need pricing or sourcing first, within a few days.',
   },
@@ -44,45 +44,83 @@ const steps = [
       />
 
       <!--
-        Cards side by side once there are columns; below `sm` the same four
-        steps lay down as rows, number in the gutter and the text beside it.
-        Turning the card on its side takes the padding out of the stack and
-        keeps the numbers in a single scannable column, which is what makes a
-        sequence read as one.
+        ── Why this is a traverse and not a grid of cards ──
+
+        The trades section directly above is twelve tiles drawn with `gap-px`
+        over a tinted background, and the service area below is the same device
+        again. Those are sets of peers, and the grid says so. This section is
+        the one thing on the page that is a sequence, and drawing it the same
+        way made it read as a third grid of interchangeable things — leaving
+        the numerals to carry an idea the layout was actively contradicting.
+
+        So: no cell dividers, no tinted ground. One hairline runs along the
+        top of the row and the steps hang beneath it as stations along a single
+        run. The line is unbroken on purpose — the columns carry no `gap-x` and
+        space each other with their own right padding instead, so each step's
+        `border-t` meets its neighbour's rather than leaving four stubs. The
+        numerals are the section's one accent, large and in ember; everything
+        else stays quiet. That also makes this the open, typographic section on
+        a page that is otherwise tiles, which the rhythm of the page needed.
+
+        Below `sm` the numeral moves beside the text rather than above it. That
+        is the old layout's good idea and it is kept: turning the row on its
+        side takes the padding out of the stack, and four numerals stacked over
+        four headings costs a couple of hundred pixels of scrolling on a phone
+        to say nothing new.
       -->
-      <ol class="mt-7 grid gap-px bg-spruce/12 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
+      <ol class="mt-8 grid gap-y-7 sm:mt-12 sm:grid-cols-2 sm:gap-y-12 lg:mt-16 lg:grid-cols-4">
         <li
           v-for="(step, i) in steps"
           :key="step.title"
-          class="flex items-start gap-4 bg-snow py-4 sm:flex-col sm:items-stretch sm:gap-0 sm:px-7 sm:py-7 lg:px-8 lg:py-8"
+          class="flex items-start gap-4 border-t border-spruce/20 pt-4 sm:block sm:pt-5 sm:pr-8 lg:pr-10"
         >
-          <div class="flex items-center gap-3 sm:gap-4">
-            <span
-              class="type-display flex h-9 w-9 shrink-0 items-center justify-center bg-spruce text-base text-snow sm:h-11 sm:w-11 sm:text-lg"
-              aria-hidden="true"
-            >
-              {{ i + 1 }}
-            </span>
-            <AppIcon
-              :name="step.icon"
-              :size="26"
-              class="h-5 w-5 text-ember-deep sm:h-[26px] sm:w-[26px]"
-            />
-          </div>
+          <!--
+            Decorative: the <ol> already announces "item 2 of 4" to a screen
+            reader, so reading the numeral out loud would say it twice.
+          -->
+          <p
+            class="type-display w-9 shrink-0 text-[2rem] leading-none text-ember-deep sm:w-auto sm:text-display-sm lg:text-[2.75rem]"
+            aria-hidden="true"
+          >
+            {{ i + 1 }}
+          </p>
 
           <div>
-            <h3 class="type-display text-lg text-spruce sm:mt-6 sm:text-xl">{{ step.title }}</h3>
+            <h3 class="type-display mt-0.5 text-lg text-spruce sm:mt-5 sm:text-xl">
+              {{ step.title }}
+            </h3>
             <p class="mt-1.5 leading-relaxed text-pretty text-stone sm:mt-3">{{ step.body }}</p>
           </div>
         </li>
       </ol>
 
-      <!-- The after-hours premium, said plainly rather than discovered later. -->
-      <p
-        class="mt-7 max-w-3xl border-l-2 border-ember px-4 text-[0.9375rem] leading-relaxed text-pretty text-stone sm:mt-10 sm:px-5 sm:py-1 sm:text-base"
+      <!--
+        The two things that can still move the number after step four. Side by
+        side under their own rule, and both opening with a plain run-in
+        sidehead: they were previously two identically ruled paragraphs stacked
+        on top of each other, only one of which was labelled, which is what
+        made them read as leftovers rather than as the terms of the job.
+      -->
+      <div
+        class="mt-12 grid gap-6 border-t border-spruce/20 pt-6 sm:mt-16 sm:grid-cols-2 sm:gap-10 sm:pt-8"
       >
-        {{ site.hours.note }}
-      </p>
+        <p
+          class="max-w-[34rem] text-[0.9375rem] leading-relaxed text-pretty text-stone sm:text-base"
+        >
+          <strong class="font-semibold text-spruce">Transparency.</strong>
+          Due to the nature of this kind of work, unforeseen issues may arise and estimates may not
+          reflect the total cost of completion. Integrity and transparency are a staple of our
+          company. Anything that comes up is addressed and discussed with our clients before any
+          decisions are made that could affect additional costs.
+        </p>
+
+        <p
+          class="max-w-[34rem] text-[0.9375rem] leading-relaxed text-pretty text-stone sm:text-base"
+        >
+          <strong class="font-semibold text-spruce">Hours and rates.</strong>
+          {{ site.hours.note }}
+        </p>
+      </div>
     </div>
   </section>
 </template>

@@ -20,7 +20,7 @@ import RidgeMountains from '@/components/ui/RidgeMountains.vue'
     <RidgeMountains class="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-56 lg:h-72" />
 
     <div
-      class="shell relative pt-28 pb-40 sm:pt-32 sm:pb-60 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-12 lg:pt-40 lg:pb-72"
+      class="shell relative pt-28 pb-40 sm:pt-32 sm:pb-60 lg:grid lg:grid-cols-[minmax(0,1fr)_43%] lg:items-center lg:gap-10 lg:pt-40 lg:pb-72"
     >
       <div>
         <!--
@@ -71,7 +71,7 @@ import RidgeMountains from '@/components/ui/RidgeMountains.vue'
           </p>
 
           <h1
-            class="rise text-display sm:text-display-lg type-display mt-4 max-w-4xl text-balance sm:mt-6 lg:text-display-xl xl:text-[7.5rem] xl:leading-[0.84]"
+            class="rise text-display sm:text-display-lg type-display mt-4 max-w-4xl text-balance sm:mt-6 lg:text-[clamp(4.5rem,7.5vw,6rem)] lg:leading-[0.86]"
             style="--delay: 80ms"
           >
             Every trade.
@@ -113,10 +113,24 @@ import RidgeMountains from '@/components/ui/RidgeMountains.vue'
         The full-size badge, for the one breakpoint with room for it beside the
         headline. Below `lg` its job is done by the watermark above.
 
+        ── Why the column is a percentage and the headline is fluid ──
+
+        The badge takes 43% of the shell, so it scales with the layout instead
+        of with the viewport — `shell` caps at 78rem, so a vw-based width kept
+        growing after the container had stopped, and quietly ate the headline.
+
+        What is left over is what the headline has to fit "Every trade." into
+        on one line, and that is the real constraint on both sizes: the display
+        face runs about 6.2× its font-size across those twelve characters, so
+        at this column width the ceiling is right around 96px. Hence the
+        `clamp` rather than a step at `xl` — it tracks the shrinking column
+        down to 1024 and then holds. Raising either number without checking the
+        other is what puts "trade." on its own line.
+
         It holds still while the rest of the hero rises: `rise` animates a
         transform, and a stamp that drifts is not a stamp.
       -->
-      <LogoMark tone="white" :size="352" class="hidden w-[clamp(17rem,22vw,22rem)] lg:block" />
+      <LogoMark tone="white" :size="512" class="hidden lg:block lg:w-full" />
     </div>
   </section>
 </template>
