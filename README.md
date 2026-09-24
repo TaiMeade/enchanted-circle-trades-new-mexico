@@ -225,7 +225,7 @@ business by varying that parameter.
 
 | Template variable                         | Source                               |
 | ----------------------------------------- | ------------------------------------ |
-| `to_email`                                | `site.email` — `dav.perez@proton.me` |
+| `to_email`                                | `site.email` — `ectnm@proton.me`     |
 | `from_name` / `from_email` / `from_phone` | Form fields                          |
 | `service_type`                            | Trade dropdown, from `services.json` |
 | `message`                                 | Form field                           |

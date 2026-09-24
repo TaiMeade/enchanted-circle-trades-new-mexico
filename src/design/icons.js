@@ -13,6 +13,7 @@
 import {
   mdiAccountHardHatOutline,
   mdiAlertCircleOutline,
+  mdiArrowLeft,
   mdiArrowRight,
   mdiCheck,
   mdiCheckCircleOutline,
@@ -66,6 +67,7 @@ export const icons = Object.freeze({
   // Interface
   menu: mdiMenu,
   close: mdiClose,
+  arrowLeft: mdiArrowLeft,
   arrowRight: mdiArrowRight,
   check: mdiCheck,
   checkCircle: mdiCheckCircleOutline,

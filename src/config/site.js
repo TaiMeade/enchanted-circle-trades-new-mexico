@@ -35,7 +35,7 @@ export const site = Object.freeze({
   owner: 'Dave Perez',
 
   /** Confirmed. All contact-form submissions are delivered here. */
-  email: 'dav.perez@proton.me',
+  email: 'ectnm@proton.me',
 
   phone: formatPhone(PHONE_DIGITS),
   phoneHref: `tel:+1${PHONE_DIGITS}`,

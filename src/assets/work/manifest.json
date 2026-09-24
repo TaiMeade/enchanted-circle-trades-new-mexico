@@ -1,0 +1,146 @@
+{
+  "1-after": {
+    "width": 1125,
+    "height": 1496,
+    "sm": 600,
+    "lg": 1125
+  },
+  "1-before": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "2-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "2-before": {
+    "width": 1125,
+    "height": 1496,
+    "sm": 600,
+    "lg": 1125
+  },
+  "3-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "3-before": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "4-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "4-before": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "5-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "5-before": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "6-after": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "6-before": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "7-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "7-before": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "8-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "8-before": {
+    "width": 1076,
+    "height": 1482,
+    "sm": 600,
+    "lg": 1076
+  },
+  "9-after": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "9-before": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "10-after": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "10-before": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "11-after": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "11-before": {
+    "width": 4032,
+    "height": 3024,
+    "sm": 800,
+    "lg": 1600
+  },
+  "12-after": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  },
+  "12-before": {
+    "width": 3024,
+    "height": 4032,
+    "sm": 600,
+    "lg": 1200
+  }
+}

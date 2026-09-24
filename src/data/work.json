@@ -1,0 +1,129 @@
+[
+  {
+    "id": 11,
+    "title": "Kitchen counters and backsplash",
+    "summary": "Old counters and tile out, dark quartz and a white subway backsplash in, with new pendants over the island.",
+    "trade": "remodels",
+    "before": {
+      "alt": "Kitchen mid-demolition, counters papered over and the old glass-tile backsplash half removed"
+    },
+    "after": {
+      "alt": "Finished kitchen with dark counters, white subway-tile backsplash and two glass pendant lights"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Sink and mosaic counter",
+    "summary": "A cracked double basin swapped for a single stainless sink, set in a flower mosaic counter and splash.",
+    "trade": "remodels",
+    "before": {
+      "alt": "Old white double sink with the surrounding tile counter torn out and taped off"
+    },
+    "after": { "alt": "New stainless single-basin sink framed in white flower mosaic tile" }
+  },
+  {
+    "id": 7,
+    "title": "Walk-in shower rebuild",
+    "summary": "Stained tile and a fogged door replaced with subway tile, a recessed niche and a grab bar.",
+    "trade": "remodels",
+    "before": {
+      "alt": "Narrow tiled shower with a frosted glass door and stained grout on the floor",
+      "focus": "50% 60%"
+    },
+    "after": {
+      "alt": "Rebuilt shower in white subway tile with dark grout, a recessed niche and a grab bar",
+      "focus": "50% 55%"
+    }
+  },
+  {
+    "id": 9,
+    "title": "Plank accent wall",
+    "summary": "Mixed-tone wood planks laid out, sorted and set floor to ceiling across a blank conference-room wall.",
+    "trade": "carpentry",
+    "before": {
+      "alt": "Blank wall marked with blue tape, wood planks laid out on the floor in front of it"
+    },
+    "after": {
+      "alt": "Finished wall covered floor to ceiling in staggered natural wood planks, behind a conference table"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Closet into wraparound shelving",
+    "summary": "A single rod and shelf became four levels of built-in shelving that turn the corners.",
+    "trade": "carpentry",
+    "before": { "alt": "Closet with one rod and shelf, packed with luggage and a vacuum" },
+    "after": {
+      "alt": "The same closet emptied and fitted with painted wraparound shelves on four levels"
+    }
+  },
+  {
+    "id": 6,
+    "title": "Outdoor kitchen island",
+    "summary": "Framed, sheathed, stuccoed and tiled — a two-level island under the backyard pergola.",
+    "trade": "remodels",
+    "before": {
+      "alt": "Plywood frame for an outdoor island with tile samples laid on top",
+      "focus": "40% 60%"
+    },
+    "after": {
+      "alt": "Finished stucco island with grey plank-tile countertops under a wooden pergola"
+    }
+  },
+  {
+    "id": 8,
+    "title": "Glass block wall opened up",
+    "summary": "A glass block wall came out to make a walk-through shower with a view to the tub and window.",
+    "trade": "renovations",
+    "before": { "alt": "Bathroom wall with a tall column of glass blocks and a vent above" },
+    "after": {
+      "alt": "Open walk-through shower in white tile, looking through to a soaking tub and window"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Kitchen flooring",
+    "summary": "Old flooring and adhesive scraped back to the slab, then wood-look plank laid wall to wall.",
+    "trade": "remodels",
+    "before": {
+      "alt": "Kitchen floor stripped to concrete with dark adhesive stains and a few new planks laid"
+    },
+    "after": {
+      "alt": "Finished grey wood-look plank floor running under a stainless fridge and cabinets"
+    }
+  },
+  {
+    "id": 12,
+    "title": "Shower door and floor",
+    "summary": "New floor tile and a frosted sliding door in place of the old swinging panel.",
+    "trade": "remodels",
+    "before": { "alt": "Shower with a worn hexagon-tile floor and a scratched hinged glass door" },
+    "after": { "alt": "Same shower with new patterned floor tile and a frosted sliding glass door" }
+  },
+  {
+    "id": 4,
+    "title": "Pantry shelving",
+    "summary": "An empty coat closet fitted out as a pantry, with six fixed shelves top to bottom.",
+    "trade": "carpentry",
+    "before": { "alt": "Empty closet with a single rod and shelf" },
+    "after": { "alt": "The same closet fitted with six painted shelves from floor to ceiling" }
+  },
+  {
+    "id": 2,
+    "title": "Water shutoff box",
+    "summary": "Dug out around the main shutoff, set a proper valve box, and poured a new pad around it.",
+    "trade": "concrete",
+    "before": { "alt": "Open hole in a concrete walkway exposing the main water shutoff valve" },
+    "after": { "alt": "New square concrete pad with a round black valve-box lid set flush" }
+  },
+  {
+    "id": 1,
+    "title": "Gas meter pad",
+    "summary": "Broken slab by the gas meter cut out and repoured, with the access cover set level.",
+    "trade": "concrete",
+    "before": {
+      "alt": "Wet concrete being screeded in a cut-out section of walkway by a gas meter"
+    },
+    "after": { "alt": "Cured concrete pad by the gas meter with a round access cover set flush" }
+  }
+]

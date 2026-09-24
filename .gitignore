@@ -34,3 +34,7 @@ Thumbs.db
 
 # Caches
 .eslintcache
+
+# Original before/after photos — full-size, with EXIF (one has GPS). Only the
+# optimized copies in src/assets/work/ ship. Regenerate them with `npm run photos`.
+photos/originals/
