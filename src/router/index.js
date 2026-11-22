@@ -33,7 +33,7 @@ const routes = [
 
 const router = createRouter({
   // BASE_URL comes from `base` in vite.config.js, so routes resolve correctly
-  // under the GitHub Pages project path.
+  // under whatever path the site is deployed to.
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {

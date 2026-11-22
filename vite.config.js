@@ -5,9 +5,9 @@ import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
 import tailwindcss from '@tailwindcss/vite'
 
-// The site is served from a GitHub Pages project path, so every asset URL and
-// every router path has to be prefixed with the repository name.
-const BASE = '/enchanted-circle-trades-new-mexico/'
+// The site is served from the root of its custom domain (ectnm.com, set in the
+// repo's Pages settings), so no path prefix is needed.
+const BASE = '/'
 
 export default defineConfig({
   base: BASE,

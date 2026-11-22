@@ -3,7 +3,7 @@
 Marketing site for a general contracting and handyman business covering all of Taos
 County, New Mexico. Owner-operated by Dave Perez.
 
-**Live:** https://taimeade.github.io/enchanted-circle-trades-new-mexico/
+**Live:** https://ectnm.com/
 
 ---
 
@@ -47,7 +47,7 @@ npm run dev
 
 | Script            | What it does                                                              |
 | ----------------- | ------------------------------------------------------------------------- |
-| `npm run dev`     | Dev server at `http://localhost:5173/enchanted-circle-trades-new-mexico/` |
+| `npm run dev`     | Dev server at `http://localhost:5173/`                                    |
 | `npm run build`   | Pre-build checks, production build into `dist/`, plus the 404 fallback    |
 | `npm run preview` | Serve the built site locally                                              |
 | `npm run lint`    | ESLint + the pre-build checks                                             |
@@ -248,7 +248,7 @@ gh secret set --env-file .env    # sets all three without typing values
 #### Allowed Origins
 
 These keys are public by design; they are locked down by origin instead. Add
-`https://taimeade.github.io` to **Allowed Origins** in the EmailJS dashboard so the
+`https://ectnm.com` to **Allowed Origins** in the EmailJS dashboard so the
 key only works from your sites.
 
 #### Spam

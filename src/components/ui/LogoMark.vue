@@ -7,9 +7,9 @@
  * index.html points the browser tab icon and the Apple touch icon at the same
  * image, and a hashed build asset under `src/assets/` is not reachable from
  * there. Keeping it in `public/` means one file serves all three. The cost is
- * that the URL has to carry the deploy base by hand — the site is served from
- * a GitHub Pages subpath, not from the domain root — which is what `BASE_URL`
- * is doing below.
+ * that the URL has to carry the deploy base by hand, which is what `BASE_URL`
+ * is doing below. It is `/` on the custom domain today, but keeping it means
+ * the logo survives a move back to a GitHub Pages project path.
  *
  * Decorative at every call site: each one already names the business in
  * adjacent text or on the link itself, so announcing it again is noise.
