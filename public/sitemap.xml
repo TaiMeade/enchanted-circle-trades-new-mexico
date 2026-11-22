@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One URL, because the site is one page (see src/router/index.js). In-page
+  anchors (#trades, #faq, ...) are not separate URLs to a crawler and do not
+  belong here. Add an entry per route if real pages are ever added.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ectnm.com/</loc>
+  </url>
+</urlset>
